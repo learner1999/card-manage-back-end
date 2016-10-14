@@ -3,22 +3,33 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-  <display-name>Jersey Demo</display-name>
+    <display-name>Jersey Demo</display-name>
 
-  <servlet>
-    <servlet-name>JerseyServlet</servlet-name>
-    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <servlet>
+        <servlet-name>JerseyServlet</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
 
-    <init-param>
-      <param-name>javax.ws.rs.Application</param-name>
-      <param-value>com.zheteng123.jersey.config.JerseyResourceConfig</param-value>
-    </init-param>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>com.zheteng123.jersey.config.JerseyResourceConfig</param-value>
+        </init-param>
 
-    <load-on-startup>1</load-on-startup>
-  </servlet>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-  <servlet-mapping>
-    <servlet-name>JerseyServlet</servlet-name>
-    <url-pattern>/api/*</url-pattern>
-  </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JerseyServlet</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>com.zheteng123.jersey.filter.AuthFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

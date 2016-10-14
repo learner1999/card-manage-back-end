@@ -6,18 +6,18 @@ import java.util.Date;
  * Created on 2016/10/9.
  */
 public class User {
-    private int id;
-    private String username;  // 用户姓名
-    private String sex;  // 性别
-    private Date birthday;  // 生日
-    private String adress;  // 地址
+    private int user_id;
+    private String username;
+    private String password;
+    private Date birthday;
+    private String avatar;
 
-    public int getId() {
-        return id;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getUsername() {
@@ -28,12 +28,12 @@ public class User {
         this.username = username;
     }
 
-    public String getSex() {
-        return sex;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getBirthday() {
@@ -44,22 +44,11 @@ public class User {
         this.birthday = birthday;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", sex='" + sex + '\'' +
-                ", birthday=" + birthday +
-                ", adress='" + adress + '\'' +
-                '}';
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
