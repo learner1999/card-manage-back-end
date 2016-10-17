@@ -16,7 +16,7 @@
     <!-- 根据来提供的登录信息（用户名和密码）来查询用户 -->
     <select id="findUserByLoginInfo" parameterType="com.zheteng123.jersey.pojo.LoginInfo"
             resultType="com.zheteng123.jersey.pojo.User">
-        select * from user where username = #{username} AND password = #{password}
+        select * from user where (username = #{username} OR telephone = #{username}) AND password = #{password}
     </select>
 
 </mapper>

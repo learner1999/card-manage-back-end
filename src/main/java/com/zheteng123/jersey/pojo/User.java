@@ -8,9 +8,18 @@ import java.util.Date;
 public class User {
     private int user_id;
     private String username;
+    private String telephone;  // 补上手机号
     private String password;
     private Date birthday;
     private String avatar;
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
     public int getUser_id() {
         return user_id;

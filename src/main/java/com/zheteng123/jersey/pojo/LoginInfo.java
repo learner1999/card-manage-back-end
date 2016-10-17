@@ -4,7 +4,7 @@ package com.zheteng123.jersey.pojo;
  * Created on 2016/10/12.
  */
 public class LoginInfo {
-    private String username;
+    private String username;  // 用户昵称或者手机号
     private String password;
 
     public String getUsername() {
