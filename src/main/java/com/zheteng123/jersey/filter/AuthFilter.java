@@ -3,13 +3,18 @@ package com.zheteng123.jersey.filter;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 /**
  * Created on 2016/10/12.
  */
 public class AuthFilter implements Filter {
+
+    private static String[] loginPath = {"/api/login/", "/api/login", "/api/storelogin/", "/api/storelogin"};
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -20,7 +25,8 @@ public class AuthFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String url = request.getRequestURI();
-        if (!"/api/login/".equals(url) && !"/api/login".equals(url) && null == request.getSession().getAttribute("user")) {
+        HttpSession session = request.getSession();
+        if (!Arrays.asList(loginPath).contains(url) && session.getAttribute("user") == null && session.getAttribute("store") == null) {
             HttpServletResponse response = ((HttpServletResponse) servletResponse);
             response.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
