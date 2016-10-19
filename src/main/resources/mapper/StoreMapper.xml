@@ -9,10 +9,22 @@
     </select>
 
 
-    <!-- 根据来提供的登录信息（用户名和密码）来查询用户 -->
+    <!-- 根据来提供的登录信息（用户名和密码）来查询商家 -->
     <select id="findStoreByLoginInfo" parameterType="com.zheteng123.jersey.pojo.LoginInfo"
             resultType="com.zheteng123.jersey.pojo.Store">
-        select * from store where owner_telephone = #{username} AND owner_password = #{password}
+        SELECT * FROM store WHERE owner_telephone = #{username} AND owner_password = #{password}
     </select>
+
+    <!-- 查询指定手机号的注册商户是否存在 -->
+    <select id="findStoreByOwnerTelephone" parameterType="java.lang.String"
+            resultType="com.zheteng123.jersey.pojo.Store">
+        SELECT * FROM store WHERE owner_telephone = #{value}
+    </select>
+
+    <!-- 添加商家 -->
+    <insert id="addStore" parameterType="com.zheteng123.jersey.pojo.Store">
+        INSERT INTO `card_manage`.`store` (`owner_name`, `owner_telephone`, `owner_password`, `name`, `phone`, `description`, `category`, `address`, `coord_long`, `coord_lat`, `service_type`)
+        VALUES (#{owner_name}, #{owner_telephone}, #{owner_password}, #{name}, #{phone}, #{description}, #{category}, #{address}, #{coord_long}, #{coord_lat}, #{service_type});
+    </insert>
 
 </mapper>

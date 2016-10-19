@@ -9,4 +9,8 @@ import com.zheteng123.jersey.pojo.Store;
 public interface StoreMapper {
 
     Store findStoreByLoginInfo(LoginInfo loginInfo);
+
+    Store findStoreByOwnerTelephone(String telephone);
+
+    int addStore(Store store);
 }

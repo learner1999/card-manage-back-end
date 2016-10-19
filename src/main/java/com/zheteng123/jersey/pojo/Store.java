@@ -9,9 +9,45 @@ public class Store {
     private String owner_telephone;
     private String owner_password;
     private String name;
+    private String phone;
+    private String description;
     private String category;
+    private String address;
     private double coord_long;
     private double coord_lat;
+    private int service_type;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getService_type() {
+        return service_type;
+    }
+
+    public void setService_type(int service_type) {
+        this.service_type = service_type;
+    }
 
     public int getId() {
         return id;

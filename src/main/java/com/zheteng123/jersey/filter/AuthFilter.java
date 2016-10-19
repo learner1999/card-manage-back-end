@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class AuthFilter implements Filter {
 
-    private static String[] loginPath = {"/api/login/", "/api/login", "/api/storelogin/", "/api/storelogin"};
+    private static String[] loginPath = {"/api/login/", "/api/login", "/api/storelogin/", "/api/storelogin", "/api/storereg/", "/api/storereg"};
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
