@@ -8,6 +8,37 @@
         select * from store where id = #{id}
     </select>
 
+    <select id="findStoreAll" resultType="com.zheteng123.jersey.pojo.Store">
+        SELECT
+        store.id,
+        store.`name`,
+        store.phone,
+        store.description,
+        store.category,
+        store.address,
+        store.coord_long,
+        store.coord_lat,
+        store.service_type
+        FROM
+        store
+    </select>
+
+    <select id="findStoreByCategory" parameterType="java.lang.String" resultType="com.zheteng123.jersey.pojo.Store">
+        SELECT
+        store.id,
+        store.`name`,
+        store.phone,
+        store.description,
+        store.category,
+        store.address,
+        store.coord_long,
+        store.coord_lat,
+        store.service_type
+        FROM
+        store
+        WHERE
+        category = #{value}
+    </select>
 
     <!-- 根据来提供的登录信息（用户名和密码）来查询商家 -->
     <select id="findStoreByLoginInfo" parameterType="com.zheteng123.jersey.pojo.LoginInfo"
