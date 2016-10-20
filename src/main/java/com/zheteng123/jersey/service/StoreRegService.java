@@ -17,12 +17,14 @@ public class StoreRegService {
 
         // 验证手机号是否已经被注册过
         String telephone = store.getOwner_telephone();
-        if (storeMapper.findStoreByOwnerTelephone(telephone) == null) {
+        if (storeMapper.findStoreByOwnerTelephone(telephone) != null) {
             return null;
         }
 
         // 添加用户
-        if (storeMapper.addStore(store) == 0) {
+        int result = storeMapper.addStore(store);
+        sqlSession.commit();
+        if (result == 0) {
             return null;
         }
 

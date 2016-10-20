@@ -24,6 +24,9 @@ public class StoreReg {
         StoreRegService storeRegService = new StoreRegService();
         Store resultStore = storeRegService.register(store);
 
+        if (resultStore == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
         resultStore.setOwner_password("");
         return Response.status(Response.Status.OK).entity(resultStore).build();
     }
