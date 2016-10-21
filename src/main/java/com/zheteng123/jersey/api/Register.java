@@ -5,9 +5,7 @@ import com.zheteng123.jersey.pojo.UserRegInfo;
 import com.zheteng123.jersey.service.RegisterService;
 import com.zheteng123.jersey.service.UserService;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -18,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 public class Register {
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public User register(UserRegInfo userRegInfo) {
         RegisterService regService = new RegisterService();
@@ -28,5 +27,13 @@ public class Register {
         } else {
             return null;
         }
+    }
+
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean getUserByTelephone(@QueryParam("telephone") String telephone) {
+        UserService userService = new UserService();
+        return userService.getUserByTelephone(telephone) != null;
     }
 }

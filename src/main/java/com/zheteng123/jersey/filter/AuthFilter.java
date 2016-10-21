@@ -25,6 +25,7 @@ public class AuthFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String url = request.getRequestURI();
+        System.out.println(url);
         HttpSession session = request.getSession();
         if (!Arrays.asList(loginPath).contains(url) && session.getAttribute("user") == null && session.getAttribute("store") == null) {
             HttpServletResponse response = ((HttpServletResponse) servletResponse);
