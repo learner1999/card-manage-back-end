@@ -2,13 +2,9 @@ package com.zheteng123.jersey.service;
 
 import com.zheteng123.jersey.mapper.UserMapper;
 import com.zheteng123.jersey.pojo.User;
-import org.apache.ibatis.io.Resources;
+import com.zheteng123.jersey.utils.DbUtils;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 
@@ -17,22 +13,20 @@ import java.util.List;
  */
 public class UserService {
 
-    private SqlSessionFactory sqlSessionFactory;
-
-    public UserService() {
-        String resource = "SqlMapConfig.xml";
-        InputStream is = null;
-        try {
-            is = Resources.getResourceAsStream(resource);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
+    public List<User> getUserByUsername(String name) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        List<User> userList = userMapper.findUserByUsername(name);
+        sqlSession.close();
+        return userList;
     }
 
-    public List<User> getUserByUsername(String name) {
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+    public User getUserByTelephone(String telephone) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        return userMapper.findUserByUsername(name);
+        User user =  userMapper.findUserByTelephone(telephone);
+        sqlSession.close();
+
+        return user;
     }
 }

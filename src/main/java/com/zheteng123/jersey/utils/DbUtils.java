@@ -47,6 +47,7 @@ public class DbUtils {
         if (sqlSessionFactory == null){
             initSqlSessionFactory();
         }
+        System.out.println(sqlSessionFactory);
         return sqlSessionFactory.openSession();
     }
 }

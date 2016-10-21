@@ -9,9 +9,13 @@ import java.util.List;
  * Created on 2016/10/9.
  */
 public interface UserMapper {
-    public User findUserById(int id);
+    User findUserById(int id);
 
-    public List<User> findUserByUsername(String username);
+    List<User> findUserByUsername(String username);
 
-    public User findUserByLoginInfo(LoginInfo loginInfo);
+    User findUserByLoginInfo(LoginInfo loginInfo);
+
+    int addUser(User user);
+
+    User findUserByTelephone(String telephone);
 }

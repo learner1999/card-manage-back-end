@@ -7,10 +7,16 @@
     <select id="findUserById" parameterType="int" resultType="com.zheteng123.jersey.pojo.User">
         select * from user where user_id = #{user_id}
     </select>
+
     <!-- 自定义条件查询用户列表 -->
     <select id="findUserByUsername" parameterType="java.lang.String"
             resultType="com.zheteng123.jersey.pojo.User">
         select * from user where username like '%${value}%'
+    </select>
+
+    <!-- 根据手机号获取用户信息 -->
+    <select id="findUserByTelephone" parameterType="java.lang.String" resultType="com.zheteng123.jersey.pojo.User">
+        select * from user where telephone = #{value}
     </select>
 
     <!-- 根据来提供的登录信息（用户名和密码）来查询用户 -->
@@ -18,5 +24,11 @@
             resultType="com.zheteng123.jersey.pojo.User">
         select * from user where (username = #{username} OR telephone = #{username}) AND password = #{password}
     </select>
+
+    <!-- 添加用户 -->
+    <insert id="addUser" parameterType="com.zheteng123.jersey.pojo.User">
+        INSERT INTO `card_manage`.`user` (`user_id`, `username`, `telephone`, `password`, `birthday`, `avatar`)
+         VALUES (#{user_id}, #{username}, #{telephone}, #{password}, #{birthday}, #{avatar});
+    </insert>
 
 </mapper>

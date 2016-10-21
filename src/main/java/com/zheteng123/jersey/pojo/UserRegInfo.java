@@ -3,25 +3,22 @@ package com.zheteng123.jersey.pojo;
 import java.util.Date;
 
 /**
- * Created on 2016/10/9.
+ * Created on 2016/10/20.
  */
-public class User {
-    private int user_id;
+public class UserRegInfo {
     private String username;
-    private String telephone;  // 补上手机号
+    private String telephone;
+    private String smsCode;  // 验证码
     private String password;
     private Date birthday;
     private String avatar;
 
-    public User() {
+    public String getUsername() {
+        return username;
     }
 
-    public User(UserRegInfo userRegInfo) {
-        username = userRegInfo.getUsername();
-        telephone = userRegInfo.getTelephone();
-        password = userRegInfo.getPassword();
-        birthday = userRegInfo.getBirthday();
-        avatar = userRegInfo.getAvatar();
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getTelephone() {
@@ -32,20 +29,12 @@ public class User {
         this.telephone = telephone;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public String getSmsCode() {
+        return smsCode;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setSmsCode(String smsCode) {
+        this.smsCode = smsCode;
     }
 
     public String getPassword() {
