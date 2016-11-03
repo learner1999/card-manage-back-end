@@ -7,3 +7,5 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+/JerseyMybatis.iml
+src/main/resources/rebel.xml
