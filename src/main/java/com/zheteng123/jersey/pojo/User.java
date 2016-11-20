@@ -6,7 +6,7 @@ import java.util.Date;
  * Created on 2016/10/9.
  */
 public class User {
-    private int user_id;
+    private int id;
     private String username;
     private String telephone;  // 补上手机号
     private String password;
@@ -32,12 +32,12 @@ public class User {
         this.telephone = telephone;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getId() {
+        return id;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
