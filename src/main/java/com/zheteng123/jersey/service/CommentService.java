@@ -30,7 +30,8 @@ public class CommentService {
         return commentMapper.select(pojo);
     }
 
-    public int update(Comment pojo){
+    public int update(int id, Comment pojo){
+        pojo.setId(id);
         return commentMapper.update(pojo);
     }
 

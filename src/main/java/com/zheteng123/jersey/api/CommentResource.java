@@ -44,8 +44,7 @@ public class CommentResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Comment updateComment(Comment comment, @PathParam("id") int id) {
 
-        comment.setId(id);
-        if (commentService.update(comment) == 1) {
+        if (commentService.update(id, comment) == 1) {
             return commentService.selectById(id);
         }
 
