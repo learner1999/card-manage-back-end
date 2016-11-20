@@ -22,6 +22,7 @@
     <mappers>
         <mapper resource="mapper/UsersMapper.xml"/>
         <mapper resource="mapper/StoreMapper.xml"/>
+        <mapper resource="mapper/PreferentialMapper.xml"/>
         <!--<package name="com.zheteng123.jersey.mapper"/>-->
     </mappers>
 
