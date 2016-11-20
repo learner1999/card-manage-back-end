@@ -9,3 +9,4 @@ buildNumber.properties
 .mvn/timing.properties
 /JerseyMybatis.iml
 src/main/resources/rebel.xml
+.idea/
