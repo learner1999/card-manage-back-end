@@ -23,6 +23,8 @@
         <mapper resource="mapper/UsersMapper.xml"/>
         <mapper resource="mapper/StoreMapper.xml"/>
         <mapper resource="mapper/PreferentialMapper.xml"/>
+        <mapper resource="mapper/FavoritesMapper.xml"/>
+        <mapper resource="mapper/CommentMapper.xml"/>
         <!--<package name="com.zheteng123.jersey.mapper"/>-->
     </mappers>
 

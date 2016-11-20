@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zheteng123.jersey.mapper.CommentMapper">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.zheteng123.jersey.pojo.Comment">
+        <result column="id" property="id"/>
+        <result column="store_id" property="storeId"/>
+        <result column="user_id" property="userId"/>
+        <result column="stars" property="stars"/>
+        <result column="point" property="point"/>
+        <result column="comment" property="comment"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        store_id,
+        user_id,
+        time,
+        stars,
+        point,
+        comment
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != 0"> id, </if>
+            <if test="pojo.storeId != 0"> store_id, </if>
+            <if test="pojo.userId != 0"> user_id, </if>
+            time,
+            <if test="pojo.stars != 0"> stars, </if>
+            <if test="pojo.point != 0"> point, </if>
+            <if test="pojo.comment != null"> comment, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != 0"> #{pojo.id}, </if>
+            <if test="pojo.storeId != 0"> #{pojo.storeId}, </if>
+            <if test="pojo.userId != 0"> #{pojo.userId}, </if>
+            CURRENT_TIMESTAMP(),
+            <if test="pojo.stars != 0"> #{pojo.stars}, </if>
+            <if test="pojo.point != 0"> #{pojo.point}, </if>
+            <if test="pojo.comment != null"> #{pojo.comment}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO comment(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.storeId},
+            #{pojo.userId},
+            #{pojo.stars},
+            #{pojo.point},
+            #{pojo.comment}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE comment
+        <set>
+            <if test="pojo.id != 0"> id = #{pojo.id}, </if>
+            <if test="pojo.storeId != 0"> store_id = #{pojo.storeId}, </if>
+            <if test="pojo.userId != 0"> user_id = #{pojo.userId}, </if>
+            <if test="pojo.stars != 0"> stars = #{pojo.stars}, </if>
+            <if test="pojo.point != 0"> point = #{pojo.point}, </if>
+            <if test="pojo.comment != null"> comment = #{pojo.comment} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM comment
+        <where>
+            <if test="pojo.id != 0"> AND id = #{pojo.id} </if>
+            <if test="pojo.storeId != 0"> AND store_id = #{pojo.storeId} </if>
+            <if test="pojo.userId != 0"> AND user_id = #{pojo.userId} </if>
+            <if test="pojo.stars != 0"> AND stars = #{pojo.stars} </if>
+            <if test="pojo.point != 0"> AND point = #{pojo.point} </if>
+            <if test="pojo.comment != null"> AND comment = #{pojo.comment} </if>
+        </where>
+    </select>
+
+    <select id="selectByStoreId" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM comment
+        WHERE store_id = #{value}
+    </select>
+
+    <!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM comment where id = #{pojo.id}
+    </delete>
+</mapper>
