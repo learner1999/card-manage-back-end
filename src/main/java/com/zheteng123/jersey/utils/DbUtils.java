@@ -44,10 +44,18 @@ public class DbUtils {
      * @SqlSession
      */
     public static SqlSession getSqlSession(){
+        return getSqlSession(false);
+    }
+
+    /**
+     * 返回一个sqlSession实例
+     * @SqlSession
+     */
+    public static SqlSession getSqlSession(boolean isAutoCommit){
         if (sqlSessionFactory == null){
             initSqlSessionFactory();
         }
         System.out.println(sqlSessionFactory);
-        return sqlSessionFactory.openSession();
+        return sqlSessionFactory.openSession(isAutoCommit);
     }
 }
