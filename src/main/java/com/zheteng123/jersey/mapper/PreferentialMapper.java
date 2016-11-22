@@ -17,6 +17,8 @@ public interface PreferentialMapper {
 
     Preferential selectById(int id);
 
+    Preferential selectByStoreId(int storeId);
+
     int update(@Param("pojo") Preferential pojo);
 
 }

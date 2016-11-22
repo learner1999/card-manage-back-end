@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zheteng123.jersey.mapper.StoreWithPrefMapper">
+
+    <resultMap type="com.zheteng123.jersey.pojo.StoreWithPref" id="StoreWithPrefResultMap">
+        <id column="id" property="id"/>
+        <result column="owner_name" property="owner_name"/>
+        <result column="owner_telephone" property="owner_telephone"/>
+        <result column="owner_password" property="owner_password"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="description" property="description"/>
+        <result column="category" property="category"/>
+        <result column="address_province" property="address_province"/>
+        <result column="address_city" property="address_city"/>
+        <result column="address_district" property="address_district"/>
+        <result column="address_street" property="address_street"/>
+        <result column="coord_long" property="coord_long"/>
+        <result column="coord_lat" property="coord_lat"/>
+        <result column="service_type" property="service_type"/>
+
+        <association property="preferential" javaType="com.zheteng123.jersey.pojo.Preferential"
+            select="com.zheteng123.jersey.mapper.PreferentialMapper.selectByStoreId" column="id">
+        </association>
+    </resultMap>
+
+    <sql id="user_need_column">
+        `id`,
+        `name`,
+        `phone`,
+        `description`,
+        `category`,
+        `address_province`,
+        `address_city`,
+        `address_district`,
+        `address_street`,
+        `address`,
+        `coord_long`,
+        `coord_lat`,
+        `service_type`
+    </sql>
+
+    <select id="selectAllLazyLoading" resultMap="StoreWithPrefResultMap">
+        SELECT <include refid="user_need_column"/>
+        FROM store
+    </select>
+
+</mapper>

@@ -3,6 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+
+    <settings>
+        <!-- 打开延迟加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 将积极加载改为消极加载 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+
     <!-- 和spring整合后 environments配置将废除-->
     <environments default="development">
         <environment id="development">
@@ -25,6 +34,7 @@
         <mapper resource="mapper/PreferentialMapper.xml"/>
         <mapper resource="mapper/FavoritesMapper.xml"/>
         <mapper resource="mapper/CommentMapper.xml"/>
+        <mapper resource="mapper/StoreWithPrefMapper.xml"/>
         <!--<package name="com.zheteng123.jersey.mapper"/>-->
     </mappers>
 

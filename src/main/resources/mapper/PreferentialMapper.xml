@@ -115,6 +115,12 @@
         WHERE id = #{pojo.id}
     </select>
 
+    <select id="selectByStoreId" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM store_preferential
+        WHERE store_id = #{value}
+    </select>
+
     <!--auto generated Code-->
     <delete id="delete">
         DELETE FROM store_preferential where id = #{pojo.id}
