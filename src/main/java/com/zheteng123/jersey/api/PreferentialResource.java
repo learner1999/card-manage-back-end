@@ -17,12 +17,33 @@ public class PreferentialResource {
 
     private PreferentialService preferentialService = new PreferentialService();
 
+    /**
+     * 查询所有商家优惠信息
+     * @return 优惠信息list
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Preferential> findPreferentialAll() {
         return preferentialService.selectAll();
     }
 
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Preferential findPreferentialById(@PathParam("id") int id) {
+        return preferentialService.selectById(id);
+    }
+
+    /**
+     * 新增优惠信息
+     * @param preferential
+     * @return
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -36,11 +57,12 @@ public class PreferentialResource {
     }
 
     @PUT
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updatePreferential(Preferential preferential) {
+    public Response updatePreferential(@PathParam("id") int id, Preferential preferential) {
 
-        if (preferentialService.update(preferential) == 1) {
+        if (preferentialService.update(id, preferential) == 1) {
             return Response.status(Response.Status.OK).entity(preferential).build();
         }
 

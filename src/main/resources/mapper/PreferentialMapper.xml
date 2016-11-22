@@ -30,25 +30,25 @@
     <insert id="insert">
         INSERT INTO store_preferential
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="pojo.id != null"> id, </if>
-            <if test="pojo.storeId != null"> store_id, </if>
+            <if test="pojo.id != 0"> id, </if>
+            <if test="pojo.storeId != 0"> store_id, </if>
             <if test="pojo.cardLogo != null"> card_logo, </if>
             <if test="pojo.discountString != null"> discount_string, </if>
             <if test="pojo.minusString != null"> minus_string, </if>
             <if test="pojo.giftString != null"> gift_string, </if>
             <if test="pojo.noteString != null"> note_string, </if>
-            <if test="pojo.exchangeScore != null"> exchange_score, </if>
+            <if test="pojo.exchangeScore != 0"> exchange_score, </if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="pojo.id != null"> #{pojo.id}, </if>
-            <if test="pojo.storeId != null"> #{pojo.storeId}, </if>
+            <if test="pojo.id != 0"> #{pojo.id}, </if>
+            <if test="pojo.storeId != 0"> #{pojo.storeId}, </if>
             <if test="pojo.cardLogo != null"> #{pojo.cardLogo}, </if>
             <if test="pojo.discountString != null"> #{pojo.discountString}, </if>
             <if test="pojo.minusString != null"> #{pojo.minusString}, </if>
             <if test="pojo.giftString != null"> #{pojo.giftString}, </if>
             <if test="pojo.noteString != null"> #{pojo.noteString}, </if>
-            <if test="pojo.exchangeScore != null"> #{pojo.exchangeScore}, </if>
+            <if test="pojo.exchangeScore != 0"> #{pojo.exchangeScore}, </if>
         </trim>
     </insert>
 
@@ -75,14 +75,14 @@
     <update id="update">
         UPDATE store_preferential
         <set>
-            <if test="pojo.id != null"> id = #{pojo.id}, </if>
-            <if test="pojo.storeId != null"> store_id = #{pojo.storeId}, </if>
+            <if test="pojo.id != 0"> id = #{pojo.id}, </if>
+            <if test="pojo.storeId != 0"> store_id = #{pojo.storeId}, </if>
             <if test="pojo.cardLogo != null"> card_logo = #{pojo.cardLogo}, </if>
             <if test="pojo.discountString != null"> discount_string = #{pojo.discountString}, </if>
             <if test="pojo.minusString != null"> minus_string = #{pojo.minusString}, </if>
             <if test="pojo.giftString != null"> gift_string = #{pojo.giftString}, </if>
             <if test="pojo.noteString != null"> note_string = #{pojo.noteString}, </if>
-            <if test="pojo.exchangeScore != null"> exchange_score = #{pojo.exchangeScore} </if>
+            <if test="pojo.exchangeScore != 0"> exchange_score = #{pojo.exchangeScore} </if>
         </set>
          WHERE id = #{pojo.id}
     </update>
@@ -92,14 +92,14 @@
         SELECT <include refid="all_column"/>
         FROM store_preferential
         <where>
-            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
-            <if test="pojo.storeId != null"> AND store_id = #{pojo.storeId} </if>
+            <if test="pojo.id != 0"> AND id = #{pojo.id} </if>
+            <if test="pojo.storeId != 0"> AND store_id = #{pojo.storeId} </if>
             <if test="pojo.cardLogo != null"> AND card_logo = #{pojo.cardLogo} </if>
             <if test="pojo.discountString != null"> AND discount_string = #{pojo.discountString} </if>
             <if test="pojo.minusString != null"> AND minus_string = #{pojo.minusString} </if>
             <if test="pojo.giftString != null"> AND gift_string = #{pojo.giftString} </if>
             <if test="pojo.noteString != null"> AND note_string = #{pojo.noteString} </if>
-            <if test="pojo.exchangeScore != null"> AND exchange_score = #{pojo.exchangeScore} </if>
+            <if test="pojo.exchangeScore != 0"> AND exchange_score = #{pojo.exchangeScore} </if>
         </where>
     </select>
 
@@ -109,7 +109,13 @@
         FROM store_preferential
     </select>
 
-<!--auto generated Code-->
+    <select id="selectById" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM store_preferential
+        WHERE id = #{pojo.id}
+    </select>
+
+    <!--auto generated Code-->
     <delete id="delete">
         DELETE FROM store_preferential where id = #{pojo.id}
     </delete>

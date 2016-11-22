@@ -14,11 +14,12 @@ public class PreferentialService {
     private PreferentialMapper preferentialDao;
 
     public PreferentialService() {
-        SqlSession sqlSession = DbUtils.getSqlSession();
+        SqlSession sqlSession = DbUtils.getSqlSession(true);
         preferentialDao = sqlSession.getMapper(PreferentialMapper.class);
     }
 
     public int insert(Preferential pojo){
+        pojo.setId(0);
         return preferentialDao.insert(pojo);
     }
 
@@ -30,11 +31,16 @@ public class PreferentialService {
         return preferentialDao.select(pojo);
     }
 
-    public int update(Preferential pojo){
+    public int update(int id, Preferential pojo){
+        pojo.setId(id);
         return preferentialDao.update(pojo);
     }
 
     public List<Preferential> selectAll() {
         return preferentialDao.selectAll();
+    }
+
+    public Preferential selectById(int id) {
+        return preferentialDao.selectById(id);
     }
 }
