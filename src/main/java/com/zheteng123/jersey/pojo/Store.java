@@ -4,18 +4,22 @@ package com.zheteng123.jersey.pojo;
  * Created on 2016/10/17.
  */
 public class Store {
-    private int id;
-    private String owner_name;
-    private String owner_telephone;
-    private String owner_password;
-    private String name;
-    private String phone;
-    private String description;
-    private String category;
-    private String address;
-    private double coord_long;
-    private double coord_lat;
-    private int service_type;
+    private int id;  // 自增id
+    private String owner_name;  // 店铺所有者姓名
+    private String owner_telephone; // 店铺所有者和手机号
+    private String owner_password;  // 登录密码
+    private String name;  // 店铺名
+    private String phone;  // 电话
+    private String description;  // 描述
+    private String category;  // 所属分类
+    private String address_province;  // 所在省
+    private String address_city;  // 所在市
+    private String address_district;  // 所在区
+    private String address_street;  // 所在街道
+    private String address;  // 详细地址
+    private double coord_long;  // 经度
+    private double coord_lat;  // 纬度
+    private int service_type;  // 服务类型（1-虚拟卡，2-实体卡）
 
     public String getPhone() {
         return phone;
@@ -31,6 +35,38 @@ public class Store {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAddress_province() {
+        return address_province;
+    }
+
+    public void setAddress_province(String address_province) {
+        this.address_province = address_province;
+    }
+
+    public String getAddress_city() {
+        return address_city;
+    }
+
+    public void setAddress_city(String address_city) {
+        this.address_city = address_city;
+    }
+
+    public String getAddress_district() {
+        return address_district;
+    }
+
+    public void setAddress_district(String address_district) {
+        this.address_district = address_district;
+    }
+
+    public String getAddress_street() {
+        return address_street;
+    }
+
+    public void setAddress_street(String address_street) {
+        this.address_street = address_street;
     }
 
     public String getAddress() {
