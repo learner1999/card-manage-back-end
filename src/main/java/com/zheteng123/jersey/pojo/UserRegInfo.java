@@ -1,6 +1,6 @@
 package com.zheteng123.jersey.pojo;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created on 2016/10/20.
