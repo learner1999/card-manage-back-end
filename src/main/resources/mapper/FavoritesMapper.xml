@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zheteng123.jersey.mapper.FavoritesMapper">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.zheteng123.jersey.pojo.Favorites">
+        <result column="id" property="id"/>
+        <result column="store_id" property="storeId"/>
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        store_id,
+        user_id,
+        time
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO favorites
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.storeId != 0"> store_id, </if>
+            <if test="pojo.userId != 0"> user_id, </if>
+            time
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.storeId != 0"> #{pojo.storeId}, </if>
+            <if test="pojo.userId != 0"> #{pojo.userId}, </if>
+            CURRENT_TIMESTAMP()
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO favorites(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.storeId},
+            #{pojo.userId}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE favorites
+        <set>
+            <if test="pojo.id != 0"> id = #{pojo.id}, </if>
+            <if test="pojo.storeId != 0"> store_id = #{pojo.storeId}, </if>
+            <if test="pojo.userId != 0"> user_id = #{pojo.userId} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM favorites
+        <where>
+            <if test="pojo.id != 0"> AND id = #{pojo.id} </if>
+            <if test="pojo.storeId != 0"> AND store_id = #{pojo.storeId} </if>
+            <if test="pojo.userId != 0"> AND user_id = #{pojo.userId} </if>
+        </where>
+    </select>
+
+    <!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM favorites
+        <where>
+            <if test="pojo.id != 0"> AND id = #{pojo.id} </if>
+            <if test="pojo.storeId != 0"> AND store_id = #{pojo.storeId} </if>
+            <if test="pojo.userId != 0"> AND user_id = #{pojo.userId} </if>
+        </where>
+    </delete>
+</mapper>
