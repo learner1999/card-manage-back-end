@@ -34,6 +34,8 @@
         <mapper resource="mapper/PreferentialMapper.xml"/>
         <mapper resource="mapper/FavoritesMapper.xml"/>
         <mapper resource="mapper/CommentMapper.xml"/>
+        <mapper resource="mapper/MemberMapper.xml"/>
+        <mapper resource="mapper/GiftMapper.xml"/>
         <mapper resource="mapper/StoreWithPrefMapper.xml"/>
         <!--<package name="com.zheteng123.jersey.mapper"/>-->
     </mappers>

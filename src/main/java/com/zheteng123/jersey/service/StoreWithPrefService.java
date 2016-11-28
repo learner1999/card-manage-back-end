@@ -16,9 +16,7 @@ public class StoreWithPrefService {
         SqlSession sqlSession = DbUtils.getSqlSession();
         StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
         List<StoreWithPref> storeWithPrefs = mapper.selectAllLazyLoading();
-
         sqlSession.close();
-
         return storeWithPrefs;
     }
 }

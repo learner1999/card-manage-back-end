@@ -58,12 +58,10 @@ public class FavoritesResource {
         FavoritesService favoritesService = new FavoritesService();
         User user = (User) request.getSession().getAttribute("user");
         int userId = user.getId();
-
         int counter = favoritesService.deleteByUserIdAndStoreId(userId, storeId);
         if (counter == 1) {
             return Response.ok().build();
         }
-
         if (counter == 0) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

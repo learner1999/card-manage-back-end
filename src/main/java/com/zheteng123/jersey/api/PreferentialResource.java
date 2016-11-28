@@ -52,7 +52,6 @@ public class PreferentialResource {
         if (preferentialService.insert(preferential) == 1) {
             return Response.status(Response.Status.OK).entity(preferential).build();
         }
-
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
