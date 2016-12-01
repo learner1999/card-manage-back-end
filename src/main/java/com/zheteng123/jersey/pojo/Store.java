@@ -20,6 +20,8 @@ public class Store {
     private double coord_long;  // 经度
     private double coord_lat;  // 纬度
     private int service_type;  // 服务类型（1-虚拟卡，2-实体卡）
+    private String picture;  // 商家图片地址
+    private String restrain;  // 办卡成为会员的前提条件
 
     public String getPhone() {
         return phone;
@@ -147,5 +149,21 @@ public class Store {
 
     public void setCoord_lat(double coord_lat) {
         this.coord_lat = coord_lat;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getRestrain() {
+        return restrain;
+    }
+
+    public void setRestrain(String restrain) {
+        this.restrain = restrain;
     }
 }

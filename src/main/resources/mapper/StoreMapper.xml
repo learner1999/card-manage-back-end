@@ -19,7 +19,9 @@
         `address`,
         `coord_long`,
         `coord_lat`,
-        `service_type`
+        `service_type`,
+        `picture`,
+        `restrain`
     </sql>
 
     <!-- 根据id获取商家信息 -->

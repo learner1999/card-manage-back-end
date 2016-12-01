@@ -18,6 +18,8 @@
         <result column="coord_long" property="coord_long"/>
         <result column="coord_lat" property="coord_lat"/>
         <result column="service_type" property="service_type"/>
+        <result column="picture" property="picture"/>
+        <result column="restrain" property="restrain"/>
 
         <association property="preferential" javaType="com.zheteng123.jersey.pojo.Preferential"
             select="com.zheteng123.jersey.mapper.PreferentialMapper.selectByStoreId" column="id">
@@ -37,7 +39,9 @@
         `address`,
         `coord_long`,
         `coord_lat`,
-        `service_type`
+        `service_type`,
+        `picture`,
+        `restrain`
     </sql>
 
     <select id="selectAllLazyLoading" resultMap="StoreWithPrefResultMap">
