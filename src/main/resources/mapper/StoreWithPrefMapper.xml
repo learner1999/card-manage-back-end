@@ -49,4 +49,10 @@
         FROM store
     </select>
 
+    <select id="selectByCategoryLazyLoading" resultMap="StoreWithPrefResultMap">
+        SELECT <include refid="user_need_column"/>
+        FROM store
+        WHERE category = #{value}
+    </select>
+
 </mapper>

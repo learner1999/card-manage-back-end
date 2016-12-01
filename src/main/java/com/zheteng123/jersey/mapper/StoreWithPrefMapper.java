@@ -10,4 +10,6 @@ import java.util.List;
 public interface StoreWithPrefMapper {
 
     public List<StoreWithPref> selectAllLazyLoading();
+
+    public List<StoreWithPref> selectByCategoryLazyLoading(String category);
 }
