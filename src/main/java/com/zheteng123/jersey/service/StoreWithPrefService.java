@@ -36,4 +36,12 @@ public class StoreWithPrefService {
         sqlSession.close();
         return storeWithPrefs;
     }
+
+    public List<StoreWithPref> getStoreWithPrefByName(String name) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
+        List<StoreWithPref> storeWithPrefs = mapper.selectByNameLazyLoading(name);
+        sqlSession.close();
+        return storeWithPrefs;
+    }
 }

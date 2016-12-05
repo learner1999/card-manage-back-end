@@ -55,4 +55,10 @@
         WHERE category = #{value}
     </select>
 
+    <select id="selectByNameLazyLoading" resultMap="StoreWithPrefResultMap">
+        SELECT <include refid="user_need_column"/>
+        FROM store
+        WHERE name like CONCAT('%',#{value},'%')
+    </select>
+
 </mapper>
