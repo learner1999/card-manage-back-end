@@ -1,6 +1,7 @@
 package com.zheteng123.jersey.service;
 
 import com.zheteng123.jersey.mapper.StoreWithPrefMapper;
+import com.zheteng123.jersey.pojo.StoreSort;
 import com.zheteng123.jersey.pojo.StoreWithPref;
 import com.zheteng123.jersey.utils.DbUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -47,10 +48,10 @@ public class StoreWithPrefService {
         return  storeWithPrefs;
     }
 
-    public int getStoreCount(){
+    public int getStoreSortCount(String category){
         SqlSession sqlSession = DbUtils.getSqlSession();
         StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
-        int Count=mapper.selectStoreCount();
+        int Count=mapper.selectStoreCount(category);
         if(Count%PageSize==0){
             PageCount=Count/PageSize;
         }else{
@@ -60,11 +61,11 @@ public class StoreWithPrefService {
         return PageCount;
     }
 
-    public List<StoreWithPref> getStoreByPageNow(Integer pageNow) {
+    public List<StoreWithPref> getStoreByPageNow(StoreSort storeSort) {
         SqlSession sqlSession = DbUtils.getSqlSession();
         StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
-        pageNow=(pageNow-1)* PageSize;
-        List<StoreWithPref> storeWithPrefs = mapper.selectStoreByPageNow(pageNow);
+        storeSort.setPagenow((storeSort.getPagenow()-1)*10);
+        List<StoreWithPref> storeWithPrefs = mapper.selectStoreByPageNow(storeSort);
         sqlSession.close();
         return storeWithPrefs;
     }

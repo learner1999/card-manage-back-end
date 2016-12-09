@@ -1,5 +1,6 @@
 package com.zheteng123.jersey.api;
 
+import com.zheteng123.jersey.pojo.StoreSort;
 import com.zheteng123.jersey.pojo.StoreWithPref;
 import com.zheteng123.jersey.service.StoreWithPrefService;
 
@@ -18,7 +19,6 @@ import java.util.List;
 @Path("storeWithPref")
 public class StoreWithPrefResource {
 
-
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
@@ -31,7 +31,6 @@ public class StoreWithPrefResource {
         if (name != null) {
             return findStoreWithPrefByName(name);
         }
-
         return findStoreWithPrefAll();
     }
 
@@ -60,18 +59,23 @@ public class StoreWithPrefResource {
     }
 
     @GET
-    @Path("count")
+    @Path("pagecount")
     @Produces(MediaType.TEXT_PLAIN)
-    public int findStoreCount() {
+    public int findStoreSortCount(@QueryParam("category") String category) {
         StoreWithPrefService storeWithPrefService = new StoreWithPrefService();
-        return storeWithPrefService.getStoreCount();
+        return storeWithPrefService.getStoreSortCount(category);
     }
 
+
     @GET
-    @Path("{pageNow}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<StoreWithPref> findStoreByPageNow(@PathParam("pageNow") int pageNow) {
+    public List<StoreWithPref> findStoreSortByPageNow(@QueryParam("pagenow") int pagenow,
+                                                      @QueryParam("category") String category) {
+        StoreSort storeSort=new StoreSort();
+        storeSort.setPagenow(pagenow);
+        storeSort.setCategory(category);
         StoreWithPrefService storeWithPrefService = new StoreWithPrefService();
-        return storeWithPrefService.getStoreByPageNow(pageNow);
+        return storeWithPrefService.getStoreByPageNow(storeSort);
     }
 }

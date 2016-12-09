@@ -1,5 +1,6 @@
 package com.zheteng123.jersey.mapper;
 
+import com.zheteng123.jersey.pojo.StoreSort;
 import com.zheteng123.jersey.pojo.StoreWithPref;
 
 import java.util.List;
@@ -15,7 +16,8 @@ public interface StoreWithPrefMapper {
     List<StoreWithPref> selectByCategoryLazyLoading(String category);
 
     List<StoreWithPref> selectByNameLazyLoading(String name);
-    public int selectStoreCount();
-    public List<StoreWithPref> selectStoreByPageNow(Integer pageNow);
 
+     int selectStoreCount(String category);
+
+    List<StoreWithPref> selectStoreByPageNow(StoreSort storeSort);
 }
