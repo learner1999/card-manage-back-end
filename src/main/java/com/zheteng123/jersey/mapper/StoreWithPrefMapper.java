@@ -8,6 +8,8 @@ import java.util.List;
  * Created on 2016/11/22.
  */
 public interface StoreWithPrefMapper {
-
     public List<StoreWithPref> selectAllLazyLoading();
+    public int selectStoreCount();
+    public List<StoreWithPref> selectStoreByPageNow(Integer pageNow);
+
 }

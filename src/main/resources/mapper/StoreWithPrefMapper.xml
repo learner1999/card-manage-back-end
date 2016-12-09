@@ -45,4 +45,13 @@
         FROM store
     </select>
 
+    <select id="selectStoreCount"  resultType="java.lang.Integer" >
+        SELECT COUNT(*)
+        FROM store
+    </select>
+
+    <select id="selectStoreByPageNow" parameterType="java.lang.Integer" resultMap="StoreWithPrefResultMap">
+        SELECT <include refid="user_need_column"/>
+        FROM store LIMIT 10 OFFSET #{pageNow,jdbcType=INTEGER}
+    </select>
 </mapper>
