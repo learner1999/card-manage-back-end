@@ -4,13 +4,11 @@ package com.zheteng123.jersey.api;
  * Created by feige_com on 2016/11/24.
  */
 import com.zheteng123.jersey.pojo.Member;
-import com.zheteng123.jersey.pojo.MemberExample;
 import com.zheteng123.jersey.service.MemberService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 @Path("member")
 public class MemberResource {
@@ -22,12 +20,12 @@ public class MemberResource {
      * @param memberExample
      * @return
      */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public List<Member> findByExample(MemberExample memberExample) {
-        return memberService.selectByExample(memberExample);
-    }
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public List<Member> findByExample(MemberExample memberExample) {
+//        return memberService.selectByExample(memberExample);
+//    }
 
     /**
      * 查询会员信息
