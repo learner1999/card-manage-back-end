@@ -37,6 +37,7 @@
         <mapper resource="mapper/MemberMapper.xml"/>
         <mapper resource="mapper/GiftMapper.xml"/>
         <mapper resource="mapper/StoreWithPrefMapper.xml"/>
+        <mapper resource="mapper/ApplyForMemberMapper.xml"/>
         <!--<package name="com.zheteng123.jersey.mapper"/>-->
     </mappers>
 
