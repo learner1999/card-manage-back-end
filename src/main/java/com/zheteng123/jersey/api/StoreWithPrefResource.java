@@ -3,9 +3,7 @@ package com.zheteng123.jersey.api;
 import com.zheteng123.jersey.pojo.StoreWithPref;
 import com.zheteng123.jersey.service.StoreWithPrefService;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -14,6 +12,39 @@ import java.util.List;
  */
 @Path("storeWithPref")
 public class StoreWithPrefResource {
+
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<StoreWithPref> findStoreWithPrefSelective(@QueryParam("category") String category,
+                                                          @QueryParam("name") String name) {
+        if (category != null) {
+            return findStoreWithPrefByCategory(category);
+        }
+
+        if (name != null) {
+            return findStoreWithPrefByName(name);
+        }
+
+        return findStoreWithPrefAll();
+    }
+
+
+    private List<StoreWithPref> findStoreWithPrefByCategory(String category) {
+        if (category == null) {
+            return findStoreWithPrefAll();
+        }
+        StoreWithPrefService storeWithPrefService = new StoreWithPrefService();
+        return storeWithPrefService.getStoreWithPrefByCategory(category);
+    }
+
+    private List<StoreWithPref> findStoreWithPrefByName(String name) {
+        if (name == null) {
+            return findStoreWithPrefAll();
+        }
+        StoreWithPrefService storeWithPrefService = new StoreWithPrefService();
+        return storeWithPrefService.getStoreWithPrefByName(name);
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

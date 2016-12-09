@@ -1,16 +1,11 @@
 package com.zheteng123.jersey.api;
 
-import com.zheteng123.jersey.mapper.GiftMapper;
 import com.zheteng123.jersey.pojo.Gift;
-import com.zheteng123.jersey.pojo.GiftExample;
-import com.zheteng123.jersey.pojo.Member;
-import com.zheteng123.jersey.pojo.MemberExample;
 import com.zheteng123.jersey.service.GiftService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 /**
  * Created by feige_com on 2016/11/24.
@@ -24,12 +19,12 @@ public class GiftResource {
      * @param giftExample
      * @return
      */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public List<Gift> findByExample(GiftExample giftExample) {
-        return giftService.selectByExample(giftExample);
-    }
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public List<Gift> findByExample(GiftExample giftExample) {
+//        return giftService.selectByExample(giftExample);
+//    }
 
     /**
      * 查询兑换商品信息

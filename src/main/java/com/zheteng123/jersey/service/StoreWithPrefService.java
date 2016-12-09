@@ -12,10 +12,35 @@ import java.util.List;
  */
 public class StoreWithPrefService {
 
+    /**
+     * 查询所有商家信息（包含优惠信息）
+     * @return 商家信息列表
+     */
     public List<StoreWithPref> getStoreWithPrefAll() {
         SqlSession sqlSession = DbUtils.getSqlSession();
         StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
         List<StoreWithPref> storeWithPrefs = mapper.selectAllLazyLoading();
+        sqlSession.close();
+        return storeWithPrefs;
+    }
+
+    /**
+     * 根据类别查询商家信息（包含优惠信息）
+     * @param category 类别
+     * @return 商家信息列表
+     */
+    public List<StoreWithPref> getStoreWithPrefByCategory(String category) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
+        List<StoreWithPref> storeWithPrefs = mapper.selectByCategoryLazyLoading(category);
+        sqlSession.close();
+        return storeWithPrefs;
+    }
+
+    public List<StoreWithPref> getStoreWithPrefByName(String name) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
+        List<StoreWithPref> storeWithPrefs = mapper.selectByNameLazyLoading(name);
         sqlSession.close();
         return storeWithPrefs;
     }

@@ -9,5 +9,9 @@ import java.util.List;
  */
 public interface StoreWithPrefMapper {
 
-    public List<StoreWithPref> selectAllLazyLoading();
+    List<StoreWithPref> selectAllLazyLoading();
+
+    List<StoreWithPref> selectByCategoryLazyLoading(String category);
+
+    List<StoreWithPref> selectByNameLazyLoading(String name);
 }
