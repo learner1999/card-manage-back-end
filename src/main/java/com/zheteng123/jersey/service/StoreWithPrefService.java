@@ -25,7 +25,6 @@ public class StoreWithPrefService {
         sqlSession.close();
         return storeWithPrefs;
     }
-<<<<<<< HEAD
 
     /**
      * 根据类别查询商家信息（包含优惠信息）
@@ -44,7 +43,10 @@ public class StoreWithPrefService {
         SqlSession sqlSession = DbUtils.getSqlSession();
         StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
         List<StoreWithPref> storeWithPrefs = mapper.selectByNameLazyLoading(name);
-=======
+        sqlSession.close();
+        return  storeWithPrefs;
+    }
+
     public int getStoreCount(){
         SqlSession sqlSession = DbUtils.getSqlSession();
         StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
@@ -63,7 +65,6 @@ public class StoreWithPrefService {
         StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
         pageNow=(pageNow-1)* PageSize;
         List<StoreWithPref> storeWithPrefs = mapper.selectStoreByPageNow(pageNow);
->>>>>>> feature/分页
         sqlSession.close();
         return storeWithPrefs;
     }

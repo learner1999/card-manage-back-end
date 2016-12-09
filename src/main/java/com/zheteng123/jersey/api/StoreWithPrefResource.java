@@ -60,6 +60,7 @@ public class StoreWithPrefResource {
     }
 
     @GET
+    @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public int findStoreCount() {
         StoreWithPrefService storeWithPrefService = new StoreWithPrefService();
