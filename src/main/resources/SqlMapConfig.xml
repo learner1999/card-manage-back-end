@@ -38,6 +38,8 @@
         <mapper resource="mapper/GiftMapper.xml"/>
         <mapper resource="mapper/StoreWithPrefMapper.xml"/>
         <mapper resource="mapper/ApplyForMemberMapper.xml"/>
+        <mapper resource="mapper/MemberLevelMapper.xml"/>
+        <mapper resource="mapper/CashierInfoMapper.xml"/>
         <!--<package name="com.zheteng123.jersey.mapper"/>-->
     </mappers>
 

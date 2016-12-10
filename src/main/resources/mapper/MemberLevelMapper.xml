@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zheteng123.jersey.mapper.MemberLevelMapper">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.zheteng123.jersey.pojo.MemberLevel">
+        <result column="id" property="id"/>
+        <result column="store_id" property="storeId"/>
+        <result column="point" property="point"/>
+        <result column="level" property="level"/>
+        <result column="discount" property="discount"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        store_id,
+        point,
+        level,
+        discount
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO member_level
+            (
+            store_id,
+            point,
+            level,
+            discount
+            )
+        VALUES
+            (
+            #{pojo.storeId},
+            #{pojo.point},
+            #{pojo.level},
+            #{pojo.discount}
+            )
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO member_level(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.storeId},
+            #{pojo.point},
+            #{pojo.level},
+            #{pojo.discount}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE member_level
+        <set>
+            <if test="pojo.id != 0"> id = #{pojo.id}, </if>
+            <if test="pojo.storeId != 0"> store_id = #{pojo.storeId}, </if>
+            <if test="pojo.point != 0"> point = #{pojo.point}, </if>
+            <if test="pojo.level != 0"> level = #{pojo.level}, </if>
+            <if test="pojo.discount != 0"> discount = #{pojo.discount} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM member_level
+        <where>
+            <if test="pojo.id != 0"> AND id = #{pojo.id} </if>
+            <if test="pojo.storeId != 0"> AND store_id = #{pojo.storeId} </if>
+            <if test="pojo.point != 0"> AND point = #{pojo.point} </if>
+            <if test="pojo.level != 0"> AND level = #{pojo.level} </if>
+            <if test="pojo.discount != 0"> AND discount = #{pojo.discount} </if>
+        </where>
+    </select>
+
+    <!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM member_level where id = #{pojo.id}
+    </delete>
+</mapper>

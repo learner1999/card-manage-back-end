@@ -19,4 +19,6 @@ public interface StoreMapper {
     Store findStoreByOwnerTelephone(String telephone);
 
     int addStore(Store store);
+
+    Store findStoreById(int id);
 }
