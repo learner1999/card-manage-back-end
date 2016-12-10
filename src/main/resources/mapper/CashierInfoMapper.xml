@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zheteng123.jersey.mapper.CashierInfoMapper">
+
+    <resultMap id="CashierInfoResultMap" type="com.zheteng123.jersey.pojo.CashierInfo">
+        <result column="user_id" property="userId"/>
+        <result column="member_id" property="memberId"/>
+        <result column="username" property="username"/>
+        <result column="point" property="point"/>
+        <result column="level" property="level"/>
+        <result column="birthday" property="birthday"/>
+        <result column="discount" property="discount"/>
+        <result column="exchange_score" property="exchange"/>
+    </resultMap>
+
+    <sql id="all_column">
+        user.id AS user_id,
+        member.id AS member_id,
+        user.username,
+        member.point,
+        user.birthday
+    </sql>
+
+    <select id="findByUsernameOrMemberId" parameterType="com.zheteng123.jersey.pojo.CashierSearchInfo" resultMap="CashierInfoResultMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM user
+        INNER JOIN member ON user.id = member.user_id
+        WHERE (member.card_num = #{id} OR user.username = #{id}) AND member.store_id = #{storeId}
+    </select>
+</mapper>
