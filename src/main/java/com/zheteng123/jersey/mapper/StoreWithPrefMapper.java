@@ -1,7 +1,10 @@
 package com.zheteng123.jersey.mapper;
 
+import com.zheteng123.jersey.pojo.Preferential;
+import com.zheteng123.jersey.pojo.Store;
 import com.zheteng123.jersey.pojo.StoreSort;
 import com.zheteng123.jersey.pojo.StoreWithPref;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,7 +20,13 @@ public interface StoreWithPrefMapper {
 
     List<StoreWithPref> selectByNameLazyLoading(String name);
 
-     int selectStoreCount(String category);
+     int selectStoreCategoryCount(String category);
 
-    List<StoreWithPref> selectStoreByPageNow(StoreSort storeSort);
+    int selectStoreCount();
+
+     int selectStoreSortCount(@Param("storeSorts") List<StoreSort> storeSort);
+
+    List<StoreWithPref> selectStoreCategoryByPagenow(StoreSort storeSort);
+
+    List<StoreWithPref> selectStoreSortByPagenow(int pagenow,@Param("storeSorts") List<StoreSort> storeSort);
 }
