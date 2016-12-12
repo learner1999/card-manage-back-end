@@ -108,9 +108,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zheteng123.jersey.pojo.Member" >
-    insert into member (id, store_id, user_id, 
+    insert into member (store_id, user_id,
       card_num, point)
-    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+    values (#{storeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
       #{cardNum,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.zheteng123.jersey.pojo.Member" >
