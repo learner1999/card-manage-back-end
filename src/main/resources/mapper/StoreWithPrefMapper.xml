@@ -62,14 +62,41 @@
     </select>
 
 
-    <select id="selectStoreCount"  parameterType="java.lang.String" resultType="java.lang.Integer" >
+    <select id="selectStoreCategoryCount"  parameterType="java.lang.String" resultType="java.lang.Integer" >
         SELECT COUNT(*)
         FROM store WHERE category = #{value}
     </select>
 
-    <select id="selectStoreByPageNow" parameterType="com.zheteng123.jersey.pojo.StoreSort" resultMap="StoreWithPrefResultMap">
+    <select id="selectStoreCount"  resultType="java.lang.Integer" >
+        SELECT COUNT(*)
+        FROM store
+    </select>
+
+    <select id="selectStoreCategoryByPagenow" parameterType="com.zheteng123.jersey.pojo.StoreSort" resultMap="StoreWithPrefResultMap">
         SELECT <include refid="user_need_column"/>
-        FROM store WHERE ( category= #{category}) LIMIT 10 OFFSET #{pagenow}
+        FROM store WHERE ( category= #{category}) LIMIT  #{pagenow} ,10
+    </select>
+
+    <select id="selectStoreSortByPagenow" resultMap="StoreWithPrefResultMap">
+        SELECT <include refid="user_need_column"/>
+        FROM store WHERE
+        category in(
+        <foreach collection="storeSorts" item="storeSort" index="index" separator=",">
+            #{storeSort.category}
+        </foreach>
+        )
+        LIMIT #{0},10
+    </select>
+
+    <select id="selectStoreSortCount" parameterType="com.zheteng123.jersey.pojo.StoreSort" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM store WHERE
+        category in(
+        <foreach collection="storeSorts" item="storeSort" index="index" separator=",">
+            #{storeSort.category}
+        </foreach>
+        )
+
     </select>
 
 

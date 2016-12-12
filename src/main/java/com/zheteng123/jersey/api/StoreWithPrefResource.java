@@ -61,21 +61,48 @@ public class StoreWithPrefResource {
     @GET
     @Path("pagecount")
     @Produces(MediaType.TEXT_PLAIN)
-    public int findStoreSortCount(@QueryParam("category") String category) {
+    public int findStoreCategoryCount(@QueryParam("category") String category,@QueryParam("sort") String sort) {
         StoreWithPrefService storeWithPrefService = new StoreWithPrefService();
-        return storeWithPrefService.getStoreSortCount(category);
+        if(category!=null){
+            return storeWithPrefService.getStoreCategoryCount(category);
+        }
+        if(sort!=null){
+            return storeWithPrefService.getStoreSortCount(sort);
+        }
+        return storeWithPrefService.getStoreCount();
     }
+
 
 
     @GET
+    @Path("category")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<StoreWithPref> findStoreCategoryByPageNow(@QueryParam("pagenow") int pagenow,
+                                                      @QueryParam("category") String category) {
+        StoreWithPrefService storeWithPrefService = new StoreWithPrefService();
+        if(pagenow!=0 && category!=null){
+
+                StoreSort storeSort=new StoreSort();
+                storeSort.setPagenow(pagenow);
+                storeSort.setCategory(category);
+                return storeWithPrefService.getStoreCategoryByPageNow(storeSort);
+        }
+        return storeWithPrefService.getStoreWithPrefAll();
+    }
+
+    @GET
+    @Path("sort")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public List<StoreWithPref> findStoreSortByPageNow(@QueryParam("pagenow") int pagenow,
-                                                      @QueryParam("category") String category) {
-        StoreSort storeSort=new StoreSort();
-        storeSort.setPagenow(pagenow);
-        storeSort.setCategory(category);
+                                                          @QueryParam("sort") String sort) {
         StoreWithPrefService storeWithPrefService = new StoreWithPrefService();
-        return storeWithPrefService.getStoreByPageNow(storeSort);
+        if(pagenow!=0 && sort!=null){
+            return storeWithPrefService.getStoreSortByPageNow(pagenow,sort);
+        }
+        return storeWithPrefService.getStoreWithPrefAll();
     }
+
+
 }
