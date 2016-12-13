@@ -21,4 +21,8 @@ public interface StoreMapper {
     int addStore(Store store);
 
     Store findStoreById(int id);
+
+    int updateByPrimaryKey(Store store);
+
+    Store findByPrimaryKey(int id);
 }

@@ -3,8 +3,12 @@ package com.zheteng123.jersey.api;
 import com.zheteng123.jersey.pojo.Store;
 import com.zheteng123.jersey.service.StoreService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -13,6 +17,9 @@ import java.util.List;
 
 @Path("store")
 public class StoreResource {
+
+    @Context
+    private HttpServletRequest request;
 
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
@@ -34,5 +41,28 @@ public class StoreResource {
         StoreService storeService = new StoreService();
 
         return storeService.findStoreAll();
+    }
+
+    @PUT
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateByPrimaryKey(Store store, @PathParam("id") int id) {
+        HttpSession session = request.getSession();
+        Store storeSession = (Store) session.getAttribute("store");
+
+        if (storeSession == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        StoreService storeService = new StoreService();
+        Store storeBefore = storeService.findByPrimaryKey(id);
+
+        boolean result = storeService.updateByPrimaryKey(store, id);
+
+        if (!result) {
+            return Response.serverError().build();
+        }
+
+        return Response.ok().entity(store).build();
     }
 }

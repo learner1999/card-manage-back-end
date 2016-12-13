@@ -24,7 +24,11 @@
         `restrain`
     </sql>
 
-    <!-- 根据id获取商家信息 -->
+  <update id="updateByPrimaryKey">
+      UPDATE `card_manage`.`store` SET `owner_name`=#{owner_name}, `owner_telephone`=#{owner_telephone}, `owner_password`=#{owner_password}, `name`=#{name}, `phone`=#{phone}, `description`=#{description}, `category`=#{category}, `address_province`=#{address_province}, `address_city`=#{address_city}, `address_district`=#{address_district}, `address_street`=#{address_street}, `address`=#{address}, `coord_long`=#{coord_long}, `coord_lat`=#{coord_lat}, `service_type`=#{service_type}, `picture`=#{picture}, `restrain`=#{restrain} WHERE (`id`=#{id});
+  </update>
+
+  <!-- 根据id获取商家信息 -->
     <select id="findStoreById" parameterType="int" resultType="com.zheteng123.jersey.pojo.Store">
         select * from store where id = #{id}
     </select>
@@ -33,6 +37,13 @@
         SELECT <include refid="all_column"/>
         FROM
         store
+    </select>
+
+    <select id="findByPrimaryKey" resultType="com.zheteng123.jersey.pojo.Store">
+        SELECT <include refid="all_column"/>
+        FROM
+        store
+        WHERE id=#{value}
     </select>
 
     <select id="findStoreByCategory" parameterType="java.lang.String" resultType="com.zheteng123.jersey.pojo.Store">
