@@ -1,82 +1,219 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zheteng123.jersey.mapper.ApplyForMemberMapper">
-
-<!--auto generated Code-->
-    <resultMap id="AllColumnMap" type="com.zheteng123.jersey.pojo.ApplyForMember">
-        <result column="id" property="id"/>
-        <result column="store_id" property="storeId"/>
-        <result column="user_id" property="userId"/>
-        <result column="status" property="status"/>
-        <result column="time" property="time"/>
-    </resultMap>
-
-<!--auto generated Code-->
-    <sql id="all_column">
+<mapper namespace="com.zheteng123.jersey.mapper.ApplyForMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.zheteng123.jersey.pojo.ApplyForMember" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, store_id, user_id, status, time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zheteng123.jersey.pojo.ApplyForMemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from apply_for_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null" >
+      <if test="offset != null" >
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null" >
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from apply_for_member
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from apply_for_member
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zheteng123.jersey.pojo.ApplyForMemberExample" >
+    delete from apply_for_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zheteng123.jersey.pojo.ApplyForMember" >
+    insert into apply_for_member (store_id, user_id,
+      status)
+    values (#{storeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zheteng123.jersey.pojo.ApplyForMember" >
+    insert into apply_for_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
+      </if>
+      <if test="storeId != null" >
         store_id,
+      </if>
+      <if test="userId != null" >
         user_id,
+      </if>
+      <if test="status != null" >
         status,
-        time
-    </sql>
-
-<!--auto generated Code-->
-    <insert id="insert">
-        INSERT INTO apply_for_member
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="pojo.storeId != 0"> store_id, </if>
-            <if test="pojo.userId != 0"> user_id, </if>
-            <if test="pojo.status != 0"> status, </if>
-        </trim>
-        VALUES
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="pojo.storeId != 0"> #{pojo.storeId}, </if>
-            <if test="pojo.userId != 0"> #{pojo.userId}, </if>
-            <if test="pojo.status != 0"> #{pojo.status}, </if>
-        </trim>
-    </insert>
-
-<!--auto generated Code-->
-    <insert id="insertList">
-        INSERT INTO apply_for_member(
-        <include refid="all_column"/>
-        )VALUES
-        <foreach collection="pojos" item="pojo" index="index" separator=",">
-            (
-            #{pojo.id},
-            #{pojo.storeId},
-            #{pojo.userId},
-            #{pojo.status},
-            #{pojo.time}
-            )
-        </foreach>
-    </insert>
-
-<!--auto generated Code-->
-    <update id="update">
-        UPDATE apply_for_member
-        <set>
-            <if test="pojo.id != 0"> id = #{pojo.id}, </if>
-            <if test="pojo.storeId != 0"> store_id = #{pojo.storeId}, </if>
-            <if test="pojo.userId != 0"> user_id = #{pojo.userId}, </if>
-            <if test="pojo.status != 0"> status = #{pojo.status}, </if>
-        </set>
-         WHERE id = #{pojo.id}
-    </update>
-
-<!--auto generated Code-->
-    <select id="select" resultMap="AllColumnMap">
-        SELECT <include refid="all_column"/>
-        FROM apply_for_member
-        <where>
-            <if test="pojo.id != 0 and pojo.id != null"> AND id = #{pojo.id} </if>
-            <if test="pojo.storeId != 0 and pojo.storeId != null"> AND store_id = #{pojo.storeId} </if>
-            <if test="pojo.userId != 0 and pojo.userId != null"> AND user_id = #{pojo.userId} </if>
-        </where>
-    </select>
-
-<!--auto generated Code-->
-    <delete id="delete">
-        DELETE FROM apply_for_member where user_id = #{pojo.userId} and store_id = #{pojo.storeId}
-    </delete>
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zheteng123.jersey.pojo.ApplyForMemberExample" resultType="java.lang.Integer" >
+    select count(*) from apply_for_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update apply_for_member
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update apply_for_member
+    set id = #{record.id,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zheteng123.jersey.pojo.ApplyForMember" >
+    update apply_for_member
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zheteng123.jersey.pojo.ApplyForMember" >
+    update apply_for_member
+    set store_id = #{storeId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
