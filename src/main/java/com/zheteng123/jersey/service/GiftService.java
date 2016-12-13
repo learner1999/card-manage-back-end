@@ -1,7 +1,6 @@
 package com.zheteng123.jersey.service;
 
 import com.zheteng123.jersey.mapper.GiftMapper;
-import com.zheteng123.jersey.mapper.MemberMapper;
 import com.zheteng123.jersey.pojo.Gift;
 import com.zheteng123.jersey.pojo.GiftExample;
 import com.zheteng123.jersey.utils.DbUtils;
@@ -126,4 +125,22 @@ public class GiftService {
    public int updateByPrimaryKey(Gift record){
        return giftMapper.updateByPrimaryKey(record);
    }
+
+
+    /**
+     * 根据商家id查询礼品信息
+     * @param storeId 商家id
+     * @return 礼品信息列表
+     */
+    public List<Gift> selectByStoreId(int storeId) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        GiftMapper mapper = sqlSession.getMapper(GiftMapper.class);
+
+        GiftExample example = new GiftExample();
+        example.or().andStoreIdEqualTo(storeId);
+        List<Gift> gifts = mapper.selectByExample(example);
+
+        sqlSession.close();
+        return gifts;
+    }
 }

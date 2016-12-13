@@ -9,9 +9,9 @@ public class Gift {
     private Integer storeId;
 
     /**
-    * 礼品id
+    * 礼品名称
     */
-    private Integer giftId;
+    private String name;
 
     /**
     * 兑换需要的积分
@@ -27,6 +27,11 @@ public class Gift {
     * 库存
     */
     private Integer stock;
+
+    /**
+    * 图片地址
+    */
+    private String picture;
 
     public Integer getId() {
         return id;
@@ -44,12 +49,12 @@ public class Gift {
         this.storeId = storeId;
     }
 
-    public Integer getGiftId() {
-        return giftId;
+    public String getName() {
+        return name;
     }
 
-    public void setGiftId(Integer giftId) {
-        this.giftId = giftId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Double getPoint() {
@@ -74,5 +79,13 @@ public class Gift {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

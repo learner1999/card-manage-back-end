@@ -1,11 +1,16 @@
 package com.zheteng123.jersey.api;
 
 import com.zheteng123.jersey.pojo.Gift;
+import com.zheteng123.jersey.pojo.Store;
 import com.zheteng123.jersey.service.GiftService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * Created by feige_com on 2016/11/24.
@@ -14,23 +19,9 @@ import javax.ws.rs.core.Response;
 public class GiftResource {
     private GiftService giftService=new GiftService();
 
-    /**
-     * 查询所有兑换商品信息
-     * @param giftExample
-     * @return
-     */
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public List<Gift> findByExample(GiftExample giftExample) {
-//        return giftService.selectByExample(giftExample);
-//    }
+    @Context
+    private HttpServletRequest request;
 
-    /**
-     * 查询兑换商品信息
-     * @param id
-     * @return
-     */
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,57 +29,102 @@ public class GiftResource {
         return giftService.selectByPrimaryKey(id);
     }
 
-    /**
-     * 新增会员信息
-     * @param record
-     * @return
-     */
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addGift(Gift record) {
+        HttpSession session = request.getSession();
+        Store store = (Store) session.getAttribute("store");
 
-        if (giftService.insertSelective(record) == 1) {
+        if (store == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        record.setStoreId(store.getId());
+        if (giftService.insert(record) == 1) {
             return Response.status(Response.Status.OK).entity(record).build();
         }
-        return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
 
-    /**
-     * 修改会员信息
-     * @param id
-     * @param record
-     * @return
-     */
+
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateGift(@PathParam("id") int id,Gift record) {
+        HttpSession session = request.getSession();
+        Store store = (Store) session.getAttribute("store");
+
+        if (store == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        Gift gift = giftService.selectByPrimaryKey(id);
+        if (gift == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        if (gift.getStoreId() != store.getId()) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        record.setId(id);
         if (giftService.updateByPrimaryKeySelective(id,record) == 1) {
             return Response.status(Response.Status.OK).entity(record).build();
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-    /**
-     * 删除会员信息
-     * @param id
-     * @return
-     */
+
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteByPrimaryKey(@PathParam("id") Integer id) {
+        HttpSession session = request.getSession();
+        Store store = (Store) session.getAttribute("store");
+
+        if (store == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        Gift gift = giftService.selectByPrimaryKey(id);
+        if (gift == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        if (gift.getStoreId() != store.getId()) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
         if (giftService.deleteByPrimaryKey(id) == 1) {
             return Response.status(Response.Status.OK).build();
         }
-        return Response.status(Response.Status.BAD_REQUEST).build();
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
 
 
+    @GET
+    @Path("store")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findByStoreId() {
+        HttpSession session = request.getSession();
+        Store store = (Store) session.getAttribute("store");
 
+        if (store == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
 
+        List<Gift> gifts = giftService.selectByStoreId(store.getId());
 
+        if (gifts == null) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+
+        if (gifts.size() == 0) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+
+        return Response.ok().entity(gifts).build();
+    }
 
 }
