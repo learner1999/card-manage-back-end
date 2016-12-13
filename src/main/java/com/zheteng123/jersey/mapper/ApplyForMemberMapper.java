@@ -1,19 +1,31 @@
 package com.zheteng123.jersey.mapper;
 
 import com.zheteng123.jersey.pojo.ApplyForMember;
+import com.zheteng123.jersey.pojo.ApplyForMemberExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface ApplyForMemberMapper {
+    int countByExample(ApplyForMemberExample example);
 
-    int insert(@Param("pojo") ApplyForMember pojo);
+    int deleteByExample(ApplyForMemberExample example);
 
-    int insertList(@Param("pojos") List< ApplyForMember> pojo);
+    int deleteByPrimaryKey(Integer id);
 
-    List<ApplyForMember> select(@Param("pojo") ApplyForMember pojo);
+    int insert(ApplyForMember record);
 
-    int update(@Param("pojo") ApplyForMember pojo);
+    int insertSelective(ApplyForMember record);
 
-    int delete(@Param("pojo") ApplyForMember applyForMemberTemp);
+    List<ApplyForMember> selectByExample(ApplyForMemberExample example);
+
+    ApplyForMember selectByPrimaryKey(Integer id);
+
+    int updateByExampleSelective(@Param("record") ApplyForMember record, @Param("example") ApplyForMemberExample example);
+
+    int updateByExample(@Param("record") ApplyForMember record, @Param("example") ApplyForMemberExample example);
+
+    int updateByPrimaryKeySelective(ApplyForMember record);
+
+    int updateByPrimaryKey(ApplyForMember record);
 }

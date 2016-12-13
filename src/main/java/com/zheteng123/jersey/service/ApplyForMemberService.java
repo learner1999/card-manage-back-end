@@ -2,6 +2,7 @@ package com.zheteng123.jersey.service;
 
 import com.zheteng123.jersey.mapper.ApplyForMemberMapper;
 import com.zheteng123.jersey.pojo.ApplyForMember;
+import com.zheteng123.jersey.pojo.ApplyForMemberExample;
 import com.zheteng123.jersey.utils.DbUtils;
 import org.apache.ibatis.session.SqlSession;
 
@@ -33,8 +34,7 @@ public class ApplyForMemberService {
     public List<ApplyForMember> findAll() {
         SqlSession sqlSession = DbUtils.getSqlSession(true);
         ApplyForMemberMapper mapper = sqlSession.getMapper(ApplyForMemberMapper.class);
-        ApplyForMember applyForMember = new ApplyForMember();
-        List<ApplyForMember> applyForMemberList = mapper.select(applyForMember);
+        List<ApplyForMember> applyForMemberList = mapper.selectByExample(new ApplyForMemberExample());
         sqlSession.close();
 
         return applyForMemberList;
@@ -49,10 +49,11 @@ public class ApplyForMemberService {
         SqlSession sqlSession = DbUtils.getSqlSession(true);
         ApplyForMemberMapper mapper = sqlSession.getMapper(ApplyForMemberMapper.class);
 
-        ApplyForMember applyForMemberTemp = new ApplyForMember();
-        applyForMemberTemp.setStoreId(applyForMember.getStoreId());
+        ApplyForMemberExample example = new ApplyForMemberExample();
+        example.or()
+                .andStoreIdEqualTo(applyForMember.getUserId());
 
-        List<ApplyForMember> applyForMemberList = mapper.select(applyForMemberTemp);
+        List<ApplyForMember> applyForMemberList = mapper.selectByExample(example);
         sqlSession.close();
 
         return applyForMemberList;
@@ -67,11 +68,11 @@ public class ApplyForMemberService {
         SqlSession sqlSession = DbUtils.getSqlSession(true);
         ApplyForMemberMapper mapper = sqlSession.getMapper(ApplyForMemberMapper.class);
 
-        ApplyForMember applyForMemberTemp = new ApplyForMember();
-        applyForMemberTemp.setUserId(applyForMember.getUserId());
-        applyForMemberTemp.setStoreId(applyForMember.getStoreId());
-
-        List<ApplyForMember> applyForMemberList = mapper.select(applyForMemberTemp);
+        ApplyForMemberExample example = new ApplyForMemberExample();
+        example.or()
+                .andStoreIdEqualTo(applyForMember.getStoreId())
+                .andUserIdEqualTo(applyForMember.getUserId());
+        List<ApplyForMember> applyForMemberList = mapper.selectByExample(example);
         sqlSession.close();
 
         return applyForMemberList.isEmpty() ? null : applyForMemberList.get(0);
@@ -86,14 +87,45 @@ public class ApplyForMemberService {
         SqlSession sqlSession = DbUtils.getSqlSession(true);
         ApplyForMemberMapper mapper = sqlSession.getMapper(ApplyForMemberMapper.class);
 
-        ApplyForMember applyForMemberTemp = new ApplyForMember();
-        System.out.println("service:" + applyForMember.getUserId());
-        applyForMemberTemp.setUserId(applyForMember.getUserId());
-        applyForMemberTemp.setStoreId(applyForMember.getStoreId());
-
-        int counter = mapper.delete(applyForMemberTemp);
+        ApplyForMemberExample example = new ApplyForMemberExample();
+        example.or()
+                .andStoreIdEqualTo(applyForMember.getStoreId())
+                .andUserIdEqualTo(applyForMember.getUserId());
+        int counter = mapper.deleteByExample(example);
         sqlSession.close();
 
         return counter == 1;
+    }
+
+    /**
+     * 根据id修改用户会员申请
+     * @param applyForMember 会员申请信息
+     * @param id 自增id
+     * @return 是否成功
+     */
+    public boolean updateByPrimaryKey(ApplyForMember applyForMember, int id) {
+        SqlSession sqlSession = DbUtils.getSqlSession(true);
+        ApplyForMemberMapper mapper = sqlSession.getMapper(ApplyForMemberMapper.class);
+
+        applyForMember.setId(id);
+        int counter = mapper.updateByPrimaryKey(applyForMember);
+
+        sqlSession.close();
+        return counter == 1;
+    }
+
+    /**
+     * 根据id查询申请信息
+     * @param id 自增id
+     * @return 申请信息
+     */
+    public ApplyForMember selectByPrimaryKey(int id) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        ApplyForMemberMapper mapper = sqlSession.getMapper(ApplyForMemberMapper.class);
+
+        ApplyForMember applyForMember = mapper.selectByPrimaryKey(id);
+
+        sqlSession.close();
+        return applyForMember;
     }
 }

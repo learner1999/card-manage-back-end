@@ -1,9 +1,10 @@
 package com.zheteng123.jersey.api;
 
-import com.zheteng123.jersey.result.Code;
 import com.zheteng123.jersey.pojo.ApplyForMember;
 import com.zheteng123.jersey.pojo.Result;
+import com.zheteng123.jersey.pojo.Store;
 import com.zheteng123.jersey.pojo.User;
+import com.zheteng123.jersey.result.Code;
 import com.zheteng123.jersey.service.ApplyForMemberService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -93,5 +94,33 @@ public class ApplyForMemberResource {
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @PUT
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateById(ApplyForMember applyForMember, @PathParam("id") int id) {
+        HttpSession session = request.getSession();
+        Store store = (Store) session.getAttribute("store");
+
+        if (store == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        ApplyForMemberService applyForMemberService = new ApplyForMemberService();
+        ApplyForMember applyForMemberBefore = applyForMemberService.selectByPrimaryKey(id);
+        if (applyForMemberBefore.getStoreId() != store.getId()) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        applyForMember.setStoreId(store.getId());
+        boolean result = applyForMemberService.updateByPrimaryKey(applyForMember, id);
+
+        if (!result) {
+            return Response.serverError().build();
+        }
+
+        return Response.ok().entity(applyForMember).build();
     }
 }
