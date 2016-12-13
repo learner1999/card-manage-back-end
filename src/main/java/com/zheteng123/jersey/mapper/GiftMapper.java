@@ -2,8 +2,9 @@ package com.zheteng123.jersey.mapper;
 
 import com.zheteng123.jersey.pojo.Gift;
 import com.zheteng123.jersey.pojo.GiftExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface GiftMapper {
     int countByExample(GiftExample example);

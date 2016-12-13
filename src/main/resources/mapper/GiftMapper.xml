@@ -4,10 +4,11 @@
   <resultMap id="BaseResultMap" type="com.zheteng123.jersey.pojo.Gift" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
-    <result column="gift_id" property="giftId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="point" property="point" jdbcType="DOUBLE" />
     <result column="money" property="money" jdbcType="DOUBLE" />
     <result column="stock" property="stock" jdbcType="INTEGER" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, store_id, gift_id, point, money, stock
+    id, store_id, name, point, money, stock, picture
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zheteng123.jersey.pojo.GiftExample" >
     select
@@ -109,10 +110,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zheteng123.jersey.pojo.Gift" >
-    insert into gift (id, store_id, gift_id, 
-      point, money, stock)
-    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{giftId,jdbcType=INTEGER}, 
-      #{point,jdbcType=DOUBLE}, #{money,jdbcType=DOUBLE}, #{stock,jdbcType=INTEGER})
+    insert into gift (store_id, name,
+      point, money, stock, 
+      picture)
+    values (#{storeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+      #{point,jdbcType=DOUBLE}, #{money,jdbcType=DOUBLE}, #{stock,jdbcType=INTEGER}, 
+      #{picture,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zheteng123.jersey.pojo.Gift" >
     insert into gift
@@ -123,8 +126,8 @@
       <if test="storeId != null" >
         store_id,
       </if>
-      <if test="giftId != null" >
-        gift_id,
+      <if test="name != null" >
+        name,
       </if>
       <if test="point != null" >
         point,
@@ -135,6 +138,9 @@
       <if test="stock != null" >
         stock,
       </if>
+      <if test="picture != null" >
+        picture,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -143,8 +149,8 @@
       <if test="storeId != null" >
         #{storeId,jdbcType=INTEGER},
       </if>
-      <if test="giftId != null" >
-        #{giftId,jdbcType=INTEGER},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="point != null" >
         #{point,jdbcType=DOUBLE},
@@ -154,6 +160,9 @@
       </if>
       <if test="stock != null" >
         #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -172,8 +181,8 @@
       <if test="record.storeId != null" >
         store_id = #{record.storeId,jdbcType=INTEGER},
       </if>
-      <if test="record.giftId != null" >
-        gift_id = #{record.giftId,jdbcType=INTEGER},
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.point != null" >
         point = #{record.point,jdbcType=DOUBLE},
@@ -184,6 +193,9 @@
       <if test="record.stock != null" >
         stock = #{record.stock,jdbcType=INTEGER},
       </if>
+      <if test="record.picture != null" >
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -193,10 +205,11 @@
     update gift
     set id = #{record.id,jdbcType=INTEGER},
       store_id = #{record.storeId,jdbcType=INTEGER},
-      gift_id = #{record.giftId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
       point = #{record.point,jdbcType=DOUBLE},
       money = #{record.money,jdbcType=DOUBLE},
-      stock = #{record.stock,jdbcType=INTEGER}
+      stock = #{record.stock,jdbcType=INTEGER},
+      picture = #{record.picture,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -207,8 +220,8 @@
       <if test="storeId != null" >
         store_id = #{storeId,jdbcType=INTEGER},
       </if>
-      <if test="giftId != null" >
-        gift_id = #{giftId,jdbcType=INTEGER},
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="point != null" >
         point = #{point,jdbcType=DOUBLE},
@@ -219,16 +232,20 @@
       <if test="stock != null" >
         stock = #{stock,jdbcType=INTEGER},
       </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zheteng123.jersey.pojo.Gift" >
     update gift
     set store_id = #{storeId,jdbcType=INTEGER},
-      gift_id = #{giftId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
       point = #{point,jdbcType=DOUBLE},
       money = #{money,jdbcType=DOUBLE},
-      stock = #{stock,jdbcType=INTEGER}
+      stock = #{stock,jdbcType=INTEGER},
+      picture = #{picture,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
