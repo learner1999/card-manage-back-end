@@ -1,10 +1,8 @@
 package com.zheteng123.jersey.api;
 
 import com.zheteng123.jersey.pojo.ApplyForMember;
-import com.zheteng123.jersey.pojo.Result;
 import com.zheteng123.jersey.pojo.Store;
 import com.zheteng123.jersey.pojo.User;
-import com.zheteng123.jersey.result.Code;
 import com.zheteng123.jersey.service.ApplyForMemberService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,16 +33,10 @@ public class ApplyForMemberResource {
         applyForMember.setStatus(0);
 
         ApplyForMemberService applyForMemberService = new ApplyForMemberService();
-        Result<ApplyForMember> applyForMemberResult = new Result<>();
         if (applyForMemberService.insert(applyForMember)) {
-            applyForMemberResult.setCode(200);
-            applyForMemberResult.setMessage("ok");
-            applyForMemberResult.setData(applyForMember);
-            return Response.ok().entity(applyForMemberResult).build();
+            return Response.ok().entity(applyForMember).build();
         } else {
-            applyForMemberResult.setCode(500);
-            applyForMemberResult.setMessage("申请失败！");
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(applyForMemberResult).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(applyForMember).build();
         }
     }
 
@@ -63,16 +55,10 @@ public class ApplyForMemberResource {
         applyForMember.setUserId(user.getId());
         ApplyForMember applyForMemberData = applyForMemberService.findByUserIdAndStoreId(applyForMember);
 
-        Result<ApplyForMember> applyForMemberResult = new Result<>();
-        applyForMemberResult.setData(applyForMemberData);
         if (applyForMemberData == null) {
-            applyForMemberResult.setCode(Code.NOT_FOUND);
-            applyForMemberResult.setMessage("未查询到申请记录");
-            return Response.status(Response.Status.NOT_FOUND).entity(applyForMemberResult).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         } else {
-            applyForMemberResult.setCode(Code.OK);
-            applyForMemberResult.setMessage("已申请");
-            return Response.ok().entity(applyForMemberResult).build();
+            return Response.ok().entity(applyForMember).build();
         }
     }
 
