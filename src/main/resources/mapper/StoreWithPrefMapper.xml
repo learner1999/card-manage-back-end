@@ -99,5 +99,11 @@
 
     </select>
 
+    <select id="selectByPrimaryKeyLazyLoading" resultMap="StoreWithPrefResultMap">
+        SELECT <include refid="user_need_column"/>
+        FROM store
+        WHERE id = #{value}
+    </select>
+
 
 </mapper>

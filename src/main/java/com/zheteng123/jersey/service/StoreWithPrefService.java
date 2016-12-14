@@ -184,5 +184,17 @@ public class StoreWithPrefService {
       }
     }
 
+    /**
+     * 根据商家id查询信息
+     * @param id 自增id
+     * @return 商家信息
+     */
+    public StoreWithPref getStoreWithPrefByPrimaryKey(int id) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
+        StoreWithPref storeWithPref = mapper.selectByPrimaryKeyLazyLoading(id);
 
+        sqlSession.close();
+        return storeWithPref;
+    }
 }

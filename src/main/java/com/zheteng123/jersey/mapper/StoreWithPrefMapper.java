@@ -1,7 +1,5 @@
 package com.zheteng123.jersey.mapper;
 
-import com.zheteng123.jersey.pojo.Preferential;
-import com.zheteng123.jersey.pojo.Store;
 import com.zheteng123.jersey.pojo.StoreSort;
 import com.zheteng123.jersey.pojo.StoreWithPref;
 import org.apache.ibatis.annotations.Param;
@@ -19,6 +17,8 @@ public interface StoreWithPrefMapper {
     List<StoreWithPref> selectByCategoryLazyLoading(String category);
 
     List<StoreWithPref> selectByNameLazyLoading(String name);
+
+    StoreWithPref selectByPrimaryKeyLazyLoading(int id);
 
      int selectStoreCategoryCount(String category);
 
