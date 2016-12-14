@@ -177,4 +177,21 @@ public class MemberService {
 
         return null;
     }
+
+    /**
+     * 根据用户id查询会员信息
+     * @param userId 用户id
+     * @return 会员信息列表
+     */
+    public List<Member> selectByUserId(int userId) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+
+        MemberExample example = new MemberExample();
+        example.or().andUserIdEqualTo(userId);
+        List<Member> members = mapper.selectByExample(example);
+
+        sqlSession.close();
+        return members;
+    }
 }

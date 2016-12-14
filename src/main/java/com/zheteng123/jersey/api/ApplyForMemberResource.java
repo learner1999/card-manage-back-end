@@ -69,17 +69,18 @@ public class ApplyForMemberResource {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
+        if (user == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
         ApplyForMemberService applyForMemberService = new ApplyForMemberService();
 
-        ApplyForMember applyForMember = new ApplyForMember();
-        applyForMember.setStoreId(storeId);
-        applyForMember.setUserId(user.getId());
-
-        if (applyForMemberService.deleteByUserIdAndStoreId(applyForMember)) {
-            return Response.ok().build();
-        } else {
+        boolean result = applyForMemberService.deleteByUserIdAndStoreId(storeId, user.getId());
+        if (!result) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
+
+        return Response.ok().build();
     }
 
     @PUT

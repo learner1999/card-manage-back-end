@@ -80,17 +80,18 @@ public class ApplyForMemberService {
 
     /**
      * 删除指定用户会员申请记录
-     * @param applyForMember 申请信息（只用到其中的 storeId 和 userId）
+     * @param storeId 商家id
+     * @param userId 用户id
      * @return 是否成功删除
      */
-    public boolean deleteByUserIdAndStoreId(ApplyForMember applyForMember) {
+    public boolean deleteByUserIdAndStoreId(int storeId, int userId) {
         SqlSession sqlSession = DbUtils.getSqlSession(true);
         ApplyForMemberMapper mapper = sqlSession.getMapper(ApplyForMemberMapper.class);
 
         ApplyForMemberExample example = new ApplyForMemberExample();
         example.or()
-                .andStoreIdEqualTo(applyForMember.getStoreId())
-                .andUserIdEqualTo(applyForMember.getUserId());
+                .andStoreIdEqualTo(storeId)
+                .andUserIdEqualTo(userId);
         int counter = mapper.deleteByExample(example);
         sqlSession.close();
 

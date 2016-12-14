@@ -104,17 +104,11 @@ public class GiftResource {
 
 
     @GET
-    @Path("store")
+    @Path("store/{storeId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByStoreId() {
-        HttpSession session = request.getSession();
-        Store store = (Store) session.getAttribute("store");
+    public Response findByStoreId(@PathParam("storeId") int storeId) {
 
-        if (store == null) {
-            return Response.status(Response.Status.FORBIDDEN).build();
-        }
-
-        List<Gift> gifts = giftService.selectByStoreId(store.getId());
+        List<Gift> gifts = giftService.selectByStoreId(storeId);
 
         if (gifts == null) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

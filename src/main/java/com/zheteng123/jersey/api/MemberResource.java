@@ -3,8 +3,10 @@ package com.zheteng123.jersey.api;
 /**
  * Created by feige_com on 2016/11/24.
  */
+
 import com.zheteng123.jersey.pojo.Member;
 import com.zheteng123.jersey.pojo.Store;
+import com.zheteng123.jersey.pojo.User;
 import com.zheteng123.jersey.service.MemberService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -135,5 +137,42 @@ public class MemberResource {
         return Response.ok().entity(members).build();
     }
 
+    @GET
+    @Path("user")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findByUserId(@QueryParam("storeId") int storeId) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
+        if (user == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        if (storeId != 0) {
+            return findByStoreIdAndUserId(storeId, user.getId());
+        }
+
+        List<Member> members = memberService.selectByUserId(user.getId());
+
+        if (members == null) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+
+        if (members.size() == 0) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+
+        return Response.ok().entity(members).build();
+    }
+
+
+    private Response findByStoreIdAndUserId(int storeId, int userId) {
+        Member member = memberService.selectByStoreIdAndUserId(storeId, userId);
+
+        if (member == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.ok().entity(member).build();
+    }
 }
