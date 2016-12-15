@@ -1,6 +1,7 @@
 package com.zheteng123.jersey.api;
 
 import com.zheteng123.jersey.pojo.Gift;
+import com.zheteng123.jersey.pojo.OrderForGift;
 import com.zheteng123.jersey.pojo.Store;
 import com.zheteng123.jersey.service.GiftService;
 
@@ -10,6 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.EOFException;
 import java.util.List;
 
 /**
@@ -27,6 +29,28 @@ public class GiftResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Gift findGiftById(@PathParam("id") Integer id) {
         return giftService.selectByPrimaryKey(id);
+    }
+
+
+    @GET
+    @Path("filter")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findGiftOrderBysore_score(@QueryParam("store_id") Integer store_id, @QueryParam("sore_score") Integer sore_score,
+                                              @QueryParam("show_me")Integer show_me,@QueryParam("show_score") Integer show_score
+                                              )
+    {
+
+        OrderForGift orderForGift=new OrderForGift();
+        orderForGift.setStore_id(store_id);
+        orderForGift.setSore_score(sore_score);
+        orderForGift.setShow_me(show_me);
+        orderForGift.setShow_score(show_score);
+        List<Gift> gifts=giftService.selectBy(orderForGift);
+        if (gifts == null||gifts.size()==0) {
+            return findByStoreId(store_id);
+        }
+
+        return Response.ok().entity(gifts).build();
     }
 
 
@@ -117,7 +141,6 @@ public class GiftResource {
         if (gifts.size() == 0) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
-
         return Response.ok().entity(gifts).build();
     }
 

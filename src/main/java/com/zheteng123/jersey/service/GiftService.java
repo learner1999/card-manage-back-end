@@ -3,6 +3,7 @@ package com.zheteng123.jersey.service;
 import com.zheteng123.jersey.mapper.GiftMapper;
 import com.zheteng123.jersey.pojo.Gift;
 import com.zheteng123.jersey.pojo.GiftExample;
+import com.zheteng123.jersey.pojo.OrderForGift;
 import com.zheteng123.jersey.utils.DbUtils;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
@@ -76,6 +77,7 @@ public class GiftService {
         return giftMapper.selectByExample(example);
     }
 
+
     /**
      * 查询商品信息
      * @param id
@@ -85,6 +87,10 @@ public class GiftService {
 
        return giftMapper.selectByPrimaryKey(id);
    }
+
+
+
+
 
     /**
      * 更新商品信息
@@ -135,11 +141,23 @@ public class GiftService {
     public List<Gift> selectByStoreId(int storeId) {
         SqlSession sqlSession = DbUtils.getSqlSession();
         GiftMapper mapper = sqlSession.getMapper(GiftMapper.class);
-
         GiftExample example = new GiftExample();
         example.or().andStoreIdEqualTo(storeId);
         List<Gift> gifts = mapper.selectByExample(example);
+        sqlSession.close();
+        return gifts;
+    }
 
+    /**
+     * 筛选礼品信息
+     * @param orderForGift
+     * @return
+     */
+
+    public List<Gift> selectBy(OrderForGift orderForGift) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        GiftMapper mapper = sqlSession.getMapper(GiftMapper.class);
+        List<Gift> gifts = mapper.selectBy(orderForGift);
         sqlSession.close();
         return gifts;
     }

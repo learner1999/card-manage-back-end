@@ -72,27 +72,45 @@
     id, store_id, name, point, money, stock, picture
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zheteng123.jersey.pojo.GiftExample" >
-    select
-    <if test="distinct" >
-      distinct
+  select
+  <if test="distinct" >
+    distinct
+  </if>
+  <include refid="Base_Column_List" />
+  from gift
+  <if test="_parameter != null" >
+    <include refid="Example_Where_Clause" />
+  </if>
+  <if test="orderByClause != null" >
+    order by ${orderByClause}
+  </if>
+  <if test="limit != null" >
+    <if test="offset != null" >
+      limit ${offset}, ${limit}
     </if>
+    <if test="offset == null" >
+      limit ${limit}
+    </if>
+  </if>
+</select>
+
+  <select id="selectBy" resultMap="BaseResultMap" parameterType="com.zheteng123.jersey.pojo.OrderForGift" >
+    select DISTINCT
     <include refid="Base_Column_List" />
     from gift
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
+   WHERE store_id =#{store_id}
+  <if test="show_me>0">
+     AND #{show_me}>=point
+  </if>
+    <if test="show_score>0">
+      AND money=0
     </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-    <if test="limit != null" >
-      <if test="offset != null" >
-        limit ${offset}, ${limit}
-      </if>
-      <if test="offset == null" >
-        limit ${limit}
-      </if>
+    order by point
+    <if test="sore_score==1" >
+      DESC
     </if>
   </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
