@@ -45,7 +45,7 @@ public class CashierInfoService {
         List<MemberLevel> memberLevels = memberLevelService.findMemberLevelByStoreId(storeId);
         memberLevels.sort((o1, o2) -> o2.getPoint() - o1.getPoint());
         for (MemberLevel memberLevel : memberLevels) {
-            if (memberLevel.getPoint() < cashierInfo.getPoint()) {
+            if (memberLevel.getPoint() <= cashierInfo.getPoint()) {
                 cashierInfo.setLevel(memberLevel.getLevel());
                 cashierInfo.setDiscount(memberLevel.getDiscount());
                 break;
