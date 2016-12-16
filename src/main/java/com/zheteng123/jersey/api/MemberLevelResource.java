@@ -27,12 +27,6 @@ public class MemberLevelResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findMemberLevelByStoreId(@PathParam("storeId") int storeId) {
 
-        HttpSession session = request.getSession();
-        Store store = (Store) session.getAttribute("store");
-        if (store == null || store.getId() != storeId) {
-            return Response.status(Response.Status.FORBIDDEN).build();
-        }
-
         MemberLevelService memberLevelService = new MemberLevelService();
         List<MemberLevel> memberLevels = memberLevelService.findMemberLevelByStoreId(storeId);
 

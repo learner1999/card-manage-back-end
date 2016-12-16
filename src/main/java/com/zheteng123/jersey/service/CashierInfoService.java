@@ -1,11 +1,11 @@
 package com.zheteng123.jersey.service;
 
 import com.zheteng123.jersey.mapper.CashierInfoMapper;
-import com.zheteng123.jersey.mapper.StoreMapper;
+import com.zheteng123.jersey.mapper.StoreWithPrefMapper;
 import com.zheteng123.jersey.pojo.CashierInfo;
 import com.zheteng123.jersey.pojo.CashierSearchInfo;
 import com.zheteng123.jersey.pojo.MemberLevel;
-import com.zheteng123.jersey.pojo.Store;
+import com.zheteng123.jersey.pojo.StoreWithPref;
 import com.zheteng123.jersey.utils.DbUtils;
 import org.apache.ibatis.session.SqlSession;
 
@@ -36,16 +36,16 @@ public class CashierInfoService {
         }
 
         // 查询商家部分信息
-        StoreMapper storeMapper = sqlSession.getMapper(StoreMapper.class);
-        Store store = storeMapper.findStoreById(storeId);
-        cashierInfo.setExchange(storeId);
+        StoreWithPrefMapper storeWithPrefMapper = sqlSession.getMapper(StoreWithPrefMapper.class);
+        StoreWithPref storeWithPref = storeWithPrefMapper.selectByPrimaryKeyLazyLoading(storeId);
+        cashierInfo.setExchange(storeWithPref.getPreferential().getExchangeScore());
 
         // 查询会员等级及折扣
         MemberLevelService memberLevelService = new MemberLevelService();
         List<MemberLevel> memberLevels = memberLevelService.findMemberLevelByStoreId(storeId);
         memberLevels.sort((o1, o2) -> o2.getPoint() - o1.getPoint());
         for (MemberLevel memberLevel : memberLevels) {
-            if (memberLevel.getPoint() <= cashierInfo.getPoint()) {
+            if (memberLevel.getPoint() < cashierInfo.getPoint()) {
                 cashierInfo.setLevel(memberLevel.getLevel());
                 cashierInfo.setDiscount(memberLevel.getDiscount());
                 break;
