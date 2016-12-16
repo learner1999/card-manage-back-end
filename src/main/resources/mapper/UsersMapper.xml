@@ -31,4 +31,19 @@
          VALUES (#{user_id}, #{username}, #{telephone}, #{password}, #{birthday}, #{avatar});
     </insert>
 
+   <update id="updateUser" >
+       UPDATE  user
+       <set>
+           <if test="username!=null">
+               username=#{username},
+               </if>
+           <if test="birthday!=null">
+           birthday=#{birthday},
+          </if>
+          <if test="avatar!=null">
+           avatar=#{avatar}
+          </if>
+       </set>
+       WHERE telephone=#{telephone}
+   </update>
 </mapper>

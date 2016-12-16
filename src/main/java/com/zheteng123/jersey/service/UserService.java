@@ -26,7 +26,15 @@ public class UserService {
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         User user =  userMapper.findUserByTelephone(telephone);
         sqlSession.close();
-
         return user;
+    }
+    public User updateUser(User user){
+        SqlSession sqlSession=DbUtils.getSqlSession(true);
+        UserMapper userMapper=sqlSession.getMapper(UserMapper.class);
+        int count=userMapper.updateUser(user);
+        if(count==1){
+            return getUserByTelephone(user.getTelephone());
+        }
+        return null;
     }
 }

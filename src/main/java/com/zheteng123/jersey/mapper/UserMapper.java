@@ -17,5 +17,7 @@ public interface UserMapper {
 
     int addUser(User user);
 
+    int updateUser(User muser);
+
     User findUserByTelephone(String telephone);
 }
