@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zheteng123.jersey.mapper.MemberWithUserMapper">
+    <resultMap id="memberWithUserResultMap" type="com.zheteng123.jersey.pojo.MemberWithUser">
+        <id column="id" property="id"/>
+        <result column="store_id" property="storeId"/>
+        <result column="card_num" property="cardNum"/>
+        <result column="point" property="point"/>
+
+        <association property="user" javaType="com.zheteng123.jersey.pojo.User"
+                     select="com.zheteng123.jersey.mapper.UserMapper.findUserById" column="user_id">
+        </association>
+    </resultMap>
+
+    <sql id="member_need_column">
+        id,
+        store_id,
+        card_num,
+        point,
+        user_id
+    </sql>
+
+    <select id="selectByStoreIdLazyLoading" resultMap="memberWithUserResultMap">
+        SELECT <include refid="member_need_column"/>
+        FROM member
+        WHERE member.store_id = #{value}
+    </select>
+</mapper>
