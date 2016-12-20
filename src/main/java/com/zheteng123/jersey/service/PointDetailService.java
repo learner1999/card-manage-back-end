@@ -62,4 +62,22 @@ public class PointDetailService {
 
         return counter == 1;
     }
+
+    /**
+     * 根据用户id和商家id查询积分明细
+     * @param userId 用户id
+     * @param storeId 商家id
+     * @return 积分明细
+     */
+    public List<PointDetail> findByUserIdAndStoreId(int userId, int storeId) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        PointDetailMapper mapper = sqlSession.getMapper(PointDetailMapper.class);
+
+        PointDetailExample example = new PointDetailExample();
+        example.or().andUserIdEqualTo(userId).andStoreIdEqualTo(storeId);
+        List<PointDetail> pointDetails = mapper.selectByExample(example);
+        sqlSession.close();
+
+        return pointDetails;
+    }
 }

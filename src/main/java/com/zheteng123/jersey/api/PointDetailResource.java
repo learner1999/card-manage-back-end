@@ -25,12 +25,17 @@ public class PointDetailResource {
     @GET
     @Path("user")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByUserId() {
+    public Response findByUserId(@QueryParam("storeId") int storeId) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
             return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+
+        if (storeId != 0) {
+            return findByUserIdAndStoreId(user.getId(), storeId);
         }
 
         PointDetailService pointDetailService = new PointDetailService();
@@ -43,6 +48,13 @@ public class PointDetailResource {
         } else {
             return Response.ok().entity(pointDetails).build();
         }
+    }
+
+    private Response findByUserIdAndStoreId(int userId, int storeId) {
+        PointDetailService pointDetailService = new PointDetailService();
+        List<PointDetail> pointDetails = pointDetailService.findByUserIdAndStoreId(userId, storeId);
+
+        return Response.ok().entity(pointDetails).build();
     }
 
     @GET
