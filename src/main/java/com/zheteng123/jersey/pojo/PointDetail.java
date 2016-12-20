@@ -1,5 +1,8 @@
 package com.zheteng123.jersey.pojo;
 
+import com.zheteng123.jersey.adapter.DateAdapter;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 
 public class PointDetail {
@@ -33,6 +36,7 @@ public class PointDetail {
     /**
     * 时间戳
     */
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date time;
 
     public Integer getId() {

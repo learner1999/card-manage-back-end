@@ -5,7 +5,7 @@
 <mapper namespace="com.zheteng123.jersey.mapper.UserMapper">
     <!-- 根据id获取用户信息 -->
     <select id="findUserById" parameterType="int" resultType="com.zheteng123.jersey.pojo.User">
-        select * from user where user_id = #{user_id}
+        select * from user where id = #{user_id}
     </select>
 
     <!-- 自定义条件查询用户列表 -->
