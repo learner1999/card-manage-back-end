@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zheteng123.jersey.mapper.ExchangeTicketMapper">
+
+    <resultMap id="exchangeTicketResultMap" type="com.zheteng123.jersey.pojo.ExchangeTicket">
+        <result property="applyForGiftId" column="apply_for_gift_id"/>
+        <result property="exchangeCode" column="exchange_code"/>
+        <result property="giftMoney" column="gift_money"/>
+        <result property="giftName" column="gift_name"/>
+        <result property="storeName" column="store_name"/>
+        <result property="time" column="time"/>
+    </resultMap>
+
+    <select id="selectByUserId" resultMap="exchangeTicketResultMap">
+        SELECT a.id AS apply_for_gift_id, a.exchange_code AS exchange_code, a.time AS time, store.`name` AS store_name, gift.`name` as gift_name, gift.money AS gift_money
+        FROM apply_for_gift AS a
+            INNER JOIN gift ON a.gift_id = gift.id
+            INNER JOIN store ON gift.store_id = store.id
+        WHERE a.user_id = 160009
+    </select>
+</mapper>

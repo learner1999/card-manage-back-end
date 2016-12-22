@@ -43,6 +43,7 @@
         <mapper resource="mapper/PointDetailMapper.xml"/>
         <mapper resource="mapper/ApplyForGiftMapper.xml"/>
         <mapper resource="mapper/MemberWithUserMapper.xml"/>
+        <mapper resource="mapper/ExchangeTicketMapper.xml"/>
         <!--<package name="com.zheteng123.jersey.mapper"/>-->
     </mappers>
 
