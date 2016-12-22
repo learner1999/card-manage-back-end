@@ -87,7 +87,9 @@ public class MemberLevelService {
         SqlSession sqlSession = DbUtils.getSqlSession();
         MemberLevelMapper mapper = sqlSession.getMapper(MemberLevelMapper.class);
 
-        List<MemberLevel> memberLevels = mapper.select(new MemberLevel());
+        MemberLevel memberLevel = new MemberLevel();
+        memberLevel.setId(id);
+        List<MemberLevel> memberLevels = mapper.select(memberLevel);
         if (memberLevels.size() > 0) {
             return memberLevels.get(0);
         } else {
