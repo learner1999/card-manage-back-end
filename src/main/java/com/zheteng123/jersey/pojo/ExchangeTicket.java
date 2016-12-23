@@ -1,5 +1,8 @@
 package com.zheteng123.jersey.pojo;
 
+import com.zheteng123.jersey.adapter.DateAdapter;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 
 /**
@@ -9,10 +12,12 @@ public class ExchangeTicket {
 
     private int applyForGiftId;
     private String exchangeCode;
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date time;
     private String storeName;
     private String giftName;
     private double giftMoney;
+    private int status;
 
     public int getApplyForGiftId() {
         return applyForGiftId;
@@ -60,5 +65,13 @@ public class ExchangeTicket {
 
     public void setGiftMoney(double giftMoney) {
         this.giftMoney = giftMoney;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

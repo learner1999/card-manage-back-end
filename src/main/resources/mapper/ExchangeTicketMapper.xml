@@ -9,13 +9,14 @@
         <result property="giftName" column="gift_name"/>
         <result property="storeName" column="store_name"/>
         <result property="time" column="time"/>
+        <result property="status" column="status"/>
     </resultMap>
 
     <select id="selectByUserId" resultMap="exchangeTicketResultMap">
-        SELECT a.id AS apply_for_gift_id, a.exchange_code AS exchange_code, a.time AS time, store.`name` AS store_name, gift.`name` as gift_name, gift.money AS gift_money
+        SELECT a.id AS apply_for_gift_id, a.exchange_code AS exchange_code, a.time AS time, store.`name` AS store_name, gift.`name` AS gift_name, gift.money AS gift_money, a.`status` AS status
         FROM apply_for_gift AS a
             INNER JOIN gift ON a.gift_id = gift.id
             INNER JOIN store ON gift.store_id = store.id
-        WHERE a.user_id = 160009
+        WHERE a.user_id = #{userId}
     </select>
 </mapper>
