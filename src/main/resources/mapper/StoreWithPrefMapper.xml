@@ -61,6 +61,12 @@
         WHERE name like CONCAT('%',#{value},'%')
     </select>
 
+    <select id="selectStoreSearchCount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM store
+        WHERE name like CONCAT('%',#{value},'%')
+    </select>
+
 
     <select id="selectStoreCategoryCount"  parameterType="java.lang.String" resultType="java.lang.Integer" >
         SELECT COUNT(*)
@@ -76,6 +82,15 @@
         SELECT <include refid="user_need_column"/>
         FROM store WHERE ( category= #{category}) LIMIT  #{pagenow} ,10
     </select>
+
+
+    <select id="selectStoreSearchByPagenow" parameterType="com.zheteng123.jersey.pojo.StoreSort" resultMap="StoreWithPrefResultMap">
+        SELECT <include refid="user_need_column"/>
+        FROM store
+        WHERE name like CONCAT('%',#{category},'%')
+        LIMIT #{pagenow},10
+    </select>
+
 
     <select id="selectStoreSortByPagenow" resultMap="StoreWithPrefResultMap">
         SELECT <include refid="user_need_column"/>

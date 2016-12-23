@@ -24,9 +24,13 @@ public interface StoreWithPrefMapper {
 
     int selectStoreCount();
 
+    int selectStoreSearchCount(String name);
+
      int selectStoreSortCount(@Param("storeSorts") List<StoreSort> storeSort);
 
     List<StoreWithPref> selectStoreCategoryByPagenow(StoreSort storeSort);
+
+    List<StoreWithPref> selectStoreSearchByPagenow(StoreSort storeSort);
 
     List<StoreWithPref> selectStoreSortByPagenow(int pagenow,@Param("storeSorts") List<StoreSort> storeSort);
 }

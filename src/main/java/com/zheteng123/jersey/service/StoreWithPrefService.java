@@ -107,6 +107,43 @@ public class StoreWithPrefService {
     }
 
 
+
+    /**
+     * 查询Search的商家的总页数
+     * @param name
+     * @return
+     */
+    public int getStoreSearchCount(String name){
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
+        int Count=mapper.selectStoreSearchCount(name);
+        if(Count%PageSize==0){
+            PageCount=Count/PageSize;
+        }else{
+            PageCount=(Count/PageSize)+1;
+        }
+        sqlSession.close();
+        return PageCount;
+    }
+
+
+    /**
+     * 根据search查询的商家分页信息
+     * @param storeSort
+     * @return
+     */
+    public List<StoreWithPref> getStoreSearchByPageNow(StoreSort storeSort) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        StoreWithPrefMapper mapper = sqlSession.getMapper(StoreWithPrefMapper.class);
+        storeSort.setPagenow((storeSort.getPagenow()-1)*PageSize);
+        List<StoreWithPref> storeWithPrefs = mapper.selectStoreSearchByPagenow(storeSort);
+        sqlSession.close();
+        return storeWithPrefs;
+    }
+
+
+
+
     /**
      * 查询指定category和第几页的商家信息
      * @param storeSort
