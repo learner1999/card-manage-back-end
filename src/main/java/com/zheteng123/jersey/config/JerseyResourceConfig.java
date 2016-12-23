@@ -1,6 +1,7 @@
 package com.zheteng123.jersey.config;
 
 import org.glassfish.jersey.logging.LoggingFeature;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 /**
@@ -17,5 +18,7 @@ public class JerseyResourceConfig extends ResourceConfig {
 
         // 注册请求日志
         register(LoggingFeature.class);
+
+        register(MultiPartFeature.class);
     }
 }
