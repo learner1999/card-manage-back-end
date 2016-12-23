@@ -1,5 +1,8 @@
 package com.zheteng123.jersey.pojo;
 
+import com.zheteng123.jersey.adapter.DateAdapter;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 
 public class ApplyForMember {
@@ -26,6 +29,7 @@ public class ApplyForMember {
     /**
     * 申请时间
     */
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date time;
 
     public Integer getId() {

@@ -129,4 +129,21 @@ public class ApplyForMemberService {
         sqlSession.close();
         return applyForMember;
     }
+
+    /**
+     * 根据商家id查询所有未处理的会员申请
+     * @param storeId 商家 id
+     * @return 会员申请信息
+     */
+    public List<ApplyForMember> selectByStoreId(int storeId) {
+        SqlSession sqlSession = DbUtils.getSqlSession();
+        ApplyForMemberMapper mapper = sqlSession.getMapper(ApplyForMemberMapper.class);
+
+        ApplyForMemberExample example = new ApplyForMemberExample();
+        example.or().andStoreIdEqualTo(storeId).andStatusEqualTo(0);
+        List<ApplyForMember> applyForMembers = mapper.selectByExample(example);
+
+        sqlSession.close();
+        return applyForMembers;
+    }
 }

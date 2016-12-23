@@ -1,5 +1,8 @@
 package com.zheteng123.jersey.pojo;
 
+import com.zheteng123.jersey.adapter.DateAdapter;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.sql.Timestamp;
 
 /**
@@ -9,6 +12,8 @@ public class Comment {
     private int id;  // 自增主键
     private int storeId;  // 商家id
     private int userId;  // 用户id
+
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Timestamp time;  // 评论时间
     private double stars;  // 用户评星
     private double point;  // 当前订单积分数
