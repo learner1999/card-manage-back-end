@@ -11,6 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * Created on 2016/12/5.
@@ -109,5 +110,22 @@ public class ApplyForMemberResource {
         }
 
         return Response.ok().entity(applyForMember).build();
+    }
+
+    @GET
+    @Path("store")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response selectByStoreId() {
+        HttpSession session = request.getSession();
+        Store store = (Store) session.getAttribute("store");
+
+        if (store == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        ApplyForMemberService applyForMemberService = new ApplyForMemberService();
+        List<ApplyForMember> applyForMembers = applyForMemberService.selectByStoreId(store.getId());
+
+        return Response.ok().entity(applyForMembers).build();
     }
 }
