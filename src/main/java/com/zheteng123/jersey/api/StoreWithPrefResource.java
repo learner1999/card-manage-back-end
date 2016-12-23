@@ -30,6 +30,44 @@ public class StoreWithPrefResource {
         return findStoreWithPrefAll();
     }
 
+    /**
+     * 获得search的结果的总页数
+     * @param name
+     * @return
+     */
+    @GET
+    @Path("s_pagecount")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public int findStoreSearchPageCount(@QueryParam("name") String name) {
+        StoreWithPrefService storeWithPrefService = new StoreWithPrefService();
+            return storeWithPrefService.getStoreSearchCount(name);
+    }
+
+
+    /**
+     * 搜索的商家的分页信息
+     * @param pagenow
+     * @param name
+     * @return
+     */
+    @GET
+    @Path("search")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<StoreWithPref> findStoreSearchByPageNow(@QueryParam("pagenow") int pagenow,
+                                                          @QueryParam("name") String name) {
+        StoreWithPrefService storeWithPrefService = new StoreWithPrefService();
+        if(pagenow!=0 && name!=null){
+            StoreSort storeSort=new StoreSort();
+            storeSort.setPagenow(pagenow);
+            storeSort.setCategory(name);
+            return storeWithPrefService.getStoreSearchByPageNow(storeSort);
+        }
+        return storeWithPrefService.getStoreWithPrefAll();
+    }
+
+
 
     private List<StoreWithPref> findStoreWithPrefByCategory(String category) {
         if (category == null) {
